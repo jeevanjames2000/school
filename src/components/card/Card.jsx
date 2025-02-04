@@ -19,7 +19,7 @@ const Card = () => {
         </div>
         <div className="icon border-2 border-black">
           <a href="#" className="iconBox "> <span className="material-symbols-outlined">
-             <MdOutlineArrowOutward className='text-[#872341] text-4xl font-bold' />
+             <MdOutlineArrowOutward className='text-[#872341] hover:text-[#fff] text-4xl font-bold' />
             </span></a>
         </div>
       </div>

@@ -16,7 +16,7 @@ export default function Gallery() {
     "https://www.w3schools.com/html/movie.mp4",
   ];
   return (
-    <div className="relative bg-white p-8 rounded-lg shadow-lg border-4 border-transparent max-w-5xl mx-auto text-center">
+    <div className="relative bg-white p-0 rounded-lg shadow-lg border-4 border-transparent max-w-5xl mx-auto text-center">
       <div className="absolute inset-1 border-1 border-black-500 rounded-lg"></div>
 
       <div className="relative z-10">
@@ -62,9 +62,9 @@ export default function Gallery() {
                 />
               ))}
         </div>
-        {}
-        <div className="mt-6 flex items-center justify-center">
-          <button className="flex items-center justify-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-orange-600 transition">
+
+        <div className="mt-6 flex items-center justify-center bottom-0 absolute">
+          <button className="flex items-center justify-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg shadow-md hover:text-orange-600 hover:bg-white hover:border hover:border-orange-600 transition">
             Explore now <FaArrowRight />
           </button>
         </div>

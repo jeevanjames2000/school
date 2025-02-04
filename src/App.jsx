@@ -48,7 +48,7 @@ function App() {
       </div>
       <div ref={contactRef}>
         <Contact />
-        <Card />
+       
 
       </div>
       <Footer scrollToSection={scrollToSection} />

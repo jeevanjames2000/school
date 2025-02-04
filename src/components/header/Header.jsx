@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import logo from '../../assets/school-logo.png'
 
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,7 +8,7 @@ export default function Header({ scrollToSection }) {
   return (
     <header className="bg-white shadow-md p-4 flex justify-between items-center">
       <div className="flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-10" />
+        <img src={logo} alt="Logo" className="h-10" />
         <span className="text-xl font-bold text-red-600 ml-2">
           Sri Ganesh Little Feet School
         </span>

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTwitter, FaLinkedin } from "react-icons/fa";
+import tutor from "../../assets/tutor.png";
 
 const heroes = [
   {
@@ -7,25 +8,25 @@ const heroes = [
     title: "Application Support Analyst Lead",
     description:
       "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
-    image: "https://via.placeholder.com/100", // Replace with actual image URL
+    image: tutor, // Replace with actual image URL
   },
   {
     name: "Vijay Kumar",
     title: "Director, Undergraduate Analytics and Planning",
     description: "Lead engineering teams at Figma, Pitch, and Protocol Labs.",
-    image: "https://via.placeholder.com/100",
+    image: tutor,
   },
   {
     name: "Anusha",
     title: "Career Educator",
     description: "Former PM for Linear, Lambda School, and On Deck.",
-    image: "https://via.placeholder.com/100",
+    image: tutor,
   },
   {
     name: "Geetha",
     title: "Co-op & Internships Program & Operations Manager",
     description: "Former frontend dev for Linear, Coinbase, and Postscript.",
-    image: "https://via.placeholder.com/100",
+    image: tutor,
   },
 ];
 

@@ -1,10 +1,11 @@
 import React from "react";
+import about from "../../assets/about.png"
 export default function About() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center p-6 md:p-12 bg-white">
-      <div className="w-full md:w-1/2 flex justify-center">
+      <div className="w-full md:w-1/3 flex justify-center">
         <img
-          src="https://placehold.co/600x400"
+          src={about}
           alt="Colorful Bulbs"
           className="rounded-lg shadow-lg"
         />

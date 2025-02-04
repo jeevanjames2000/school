@@ -1,4 +1,5 @@
 import React from "react";
+import hero from "../../assets/hero.png";
 
 export default function ApplyNow() {
   return (

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import gallery1 from "../../assets/gallery1.png"
+import gallery2 from "../../assets/gallery2.png"
+import gallery3 from "../../assets/gallery3.png"
+import gallery4 from "../../assets/gallery4.png"
+
 export default function Gallery() {
   const [activeTab, setActiveTab] = useState("images");
   const images = [
-    "/images/speaker1.jpg",
-    "/images/speaker2.jpg",
-    "/images/meeting.jpg",
-    "/images/walk.jpg",
+    gallery1,gallery2,gallery3,gallery4,gallery3,gallery1,gallery4,gallery2
+   
   ];
   const videos = [
     "https://www.w3schools.com/html/mov_bbb.mp4",

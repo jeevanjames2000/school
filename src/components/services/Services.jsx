@@ -1,3 +1,7 @@
+import React from "react";
+import service from "../../assets/service.png"
+
+
 export default function Services() {
   const data = [
     "📚 500+ Students Enrolled",
@@ -8,10 +12,11 @@ export default function Services() {
 
   return (
     <div className="p-10 bg-white flex justify-between items-center">
-      <div className="flex items-center justify-center">
+      <div className="flex flex-col justify-center">
         <h2 className="text-3xl font-bold text-gray-900 text-right">
           Why Choose Our Services?
         </h2>
+        <img src={service} alt="service" className="self-end" />
       </div>
       <div>
         <p className="text-red-700 mt-4  max-w-2xl mx-auto">

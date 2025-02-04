@@ -8,6 +8,8 @@ import Header from "./components/Header/Header";
 import ApplyNow from "./components/apply/ApplyNow";
 import InvertedRadiusComponent from "./components/InvertedComp/InvertedRadiusComponent";
 import Services from "./components/services/Services";
+import Card from "./components/card/Card";
+
 
 function App() {
   const homeRef = useRef(null);
@@ -46,6 +48,8 @@ function App() {
       </div>
       <div ref={contactRef}>
         <Contact />
+        <Card />
+
       </div>
       <Footer scrollToSection={scrollToSection} />
     </>

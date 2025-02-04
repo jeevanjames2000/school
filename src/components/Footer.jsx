@@ -1,0 +1,89 @@
+import React from "react";
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaHeart,
+} from "react-icons/fa";
+
+export default function Footer({ scrollToSection }) {
+  return (
+    <footer className="bg-gray-900 text-gray-300 py-10">
+      <div className="container mx-auto px-6 lg:px-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h2 className="text-lg font-bold text-blue-400">SGLF</h2>
+          <p className="mt-2 text-sm">
+            Nurturing young minds with care, creativity, and compassion since
+            2020.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-bold">Quick Links</h2>
+          <ul className="mt-2 space-y-2">
+            <li>
+              <button
+                onClick={() => scrollToSection("about")}
+                className="hover:text-blue-400"
+              >
+                About
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => scrollToSection("gallery")}
+                className="hover:text-blue-400"
+              >
+                Gallery
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => scrollToSection("heroes")}
+                className="hover:text-blue-400"
+              >
+                Academics
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="hover:text-blue-400"
+              >
+                Contact
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-bold">Connect With Us</h2>
+          <ul className="mt-2 space-y-2">
+            <li className="flex items-center gap-2">
+              <FaPhoneAlt /> +91 1234567890
+            </li>
+            <li className="flex items-center gap-2">
+              <FaEnvelope /> info@sglf.edu.in
+            </li>
+            <li className="flex items-center gap-2">
+              <FaMapMarkerAlt /> Chennai, Tamil Nadu
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="text-center text-sm border-t border-gray-700 mt-8 pt-4">
+        Made with <FaHeart className="inline text-red-500" /> by SGLF © 2025
+      </div>
+
+      <div className="fixed bottom-5 right-5">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition"
+        >
+          ⬆
+        </button>
+      </div>
+    </footer>
+  );
+}

@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import logo from "../../assets/school-logo.png";
 
+import { HiHome } from "react-icons/hi";
+import { HiUserGroup } from "react-icons/hi";
+import { HiAcademicCap } from "react-icons/hi2";
+import { GrGallery } from "react-icons/gr";
+import { MdOutlineConnectWithoutContact } from "react-icons/md";
+
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,6 +33,7 @@ export default function Header({ scrollToSection }) {
           onClick={() => scrollToSection("about")}
           className="text-red-600 hover:underline"
         >
+         
           About us
         </button>
         <button
@@ -61,8 +68,11 @@ export default function Header({ scrollToSection }) {
 
       {/* Sidebar Menu (Shown when isOpen is true) */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
-          <div className="bg-white w-64 p-5 flex flex-col shadow-lg h-full">
+        <div className="fixed inset-0  z-50 flex justify-end">
+          <div className="bg-black opacity-40 w-full">
+
+          </div>
+          <div className="bg-white w-90 p-5 flex flex-col shadow-lg h-full">
             <button className="self-end" onClick={() => setIsOpen(false)}>
               <FiX size={24} />
             </button>
@@ -72,8 +82,10 @@ export default function Header({ scrollToSection }) {
                   scrollToSection("home");
                   setIsOpen(false);
                 }}
-                className="text-red-600"
+                className="text-[#872341] text-left flex items-center gap-2"
               >
+                 <HiHome fontSize={20 } />
+              
                 Home
               </button>
               <button
@@ -81,8 +93,9 @@ export default function Header({ scrollToSection }) {
                   scrollToSection("about");
                   setIsOpen(false);
                 }}
-                className="text-red-600"
+                className="text-[#872341] text-left flex items-center gap-2"
               >
+                 <HiUserGroup fontSize={20} />
                 About us
               </button>
               <button
@@ -90,8 +103,9 @@ export default function Header({ scrollToSection }) {
                   scrollToSection("gallery");
                   setIsOpen(false);
                 }}
-                className="text-red-600"
+                className="text-[#872341] text-left flex items-center gap-2"
               >
+                <GrGallery fontSize={20} />
                 Gallery
               </button>
               <button
@@ -99,8 +113,9 @@ export default function Header({ scrollToSection }) {
                   scrollToSection("heroes");
                   setIsOpen(false);
                 }}
-                className="text-red-600"
+                className="text-[#872341] text-left flex items-center gap-2"
               >
+                <HiAcademicCap fontSize={20} />
                 Academics
               </button>
               <button
@@ -108,8 +123,9 @@ export default function Header({ scrollToSection }) {
                   scrollToSection("contact");
                   setIsOpen(false);
                 }}
-                className="text-red-600"
+                className="text-[#872341] text-left flex items-center gap-2"
               >
+                <MdOutlineConnectWithoutContact fontSize={20} />
                 Contact Us
               </button>
             </nav>

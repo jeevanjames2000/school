@@ -1,9 +1,8 @@
 import React from "react";
 export default function ContactForm() {
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-3/3">
+    <div className="bg-white p-8 rounded-lg shadow-xl w-full md:w-3/3 pb-13">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6">
-        
         <div>
           <label className="text-gray-600 mb-0">First Name</label>
           <input
@@ -12,7 +11,7 @@ export default function ContactForm() {
             placeholder="John"
           />
         </div>
-      
+
         <div>
           <label className="text-gray-600">Last Name</label>
           <input
@@ -22,7 +21,7 @@ export default function ContactForm() {
           />
         </div>
       </div>
-     
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <div>
           <label className="text-gray-600">Email</label>
@@ -41,7 +40,7 @@ export default function ContactForm() {
           />
         </div>
       </div>
-    
+
       <div className="mt-6">
         <label className="text-gray-600">Message</label>
         <textarea
@@ -49,7 +48,7 @@ export default function ContactForm() {
           placeholder="Write your message.."
         ></textarea>
       </div>
-    
+
       <button className="bg-orange-500 hover:bg-white text-white py-3 px-6 rounded-lg mt-6 hover:text-orange-600 hover:border hover:border-orange-600 transition">
         Send Message
       </button>

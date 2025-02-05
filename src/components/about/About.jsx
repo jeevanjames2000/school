@@ -1,5 +1,5 @@
 import React from "react";
-import about from "../../assets/about.png"
+import about from "../../assets/about.png";
 export default function About() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center p-6 md:p-12 bg-white">
@@ -8,9 +8,11 @@ export default function About() {
           src={about}
           alt="Colorful Bulbs"
           className="rounded-lg shadow-lg"
+          height={"80%"}
+          width={"80%"}
         />
       </div>
-      <div className="flex justify-center items-center  p-4 h-1">
+      <div className="flex justify-center items-center  p-4 ">
         <div className="bg-[#1D1E33] text-white p-8 rounded-2xl shadow-lg max-w-lg relative">
           <h2 className="text-3xl font-bold text-[#E2953D]">About Us</h2>
           <p className="mt-4 font-bold">
@@ -40,7 +42,7 @@ export default function About() {
             education with a focus on innovation, creativity, and
             character-building.
           </p>
-          <button className="mt-4 mb-2 bg-[#E2953D] text-[#1D1E33] font-bold py-2 px-6 rounded-lg shadow-md hover:bg-[#D28430] absolute bottom-[0px] right-4">
+          <button className="mt-4 mb-2 bg-[#E2953D] text-[#1D1E33] font-bold py-2 px-6 rounded-lg shadow-md hover:bg-[#D28430] relative top-5">
             EXPLORE
           </button>
         </div>

@@ -3,7 +3,7 @@ import about from "../../assets/about.png"
 export default function About() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center p-6 md:p-12 bg-white">
-      <div className="w-full md:w-1/3 flex justify-center">
+      <div className="w-full md:w-1/3 hidden md:flex  md:justify-center ">
         <img
           src={about}
           alt="Colorful Bulbs"
@@ -24,7 +24,7 @@ export default function About() {
             personal growth, and overall development.
           </p>
           <p className="mt-2 text-sm">
-            At [School Name], we believe that every child is unique, and our
+            At School Name, we believe that every child is unique, and our
             mission is to nurture their potential through a holistic learning
             approach. Our school offers a safe, engaging, and supportive
             environment where students can explore, innovate, and grow.

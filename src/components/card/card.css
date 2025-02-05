@@ -61,7 +61,7 @@
   .card-inner {
     position: relative;
     width: inherit;
-    height: 18.75rem;
+   
     background: var(--clr);
     border-radius: 1.25rem;
     border-bottom-right-radius: 0;

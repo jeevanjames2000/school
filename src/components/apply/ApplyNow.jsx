@@ -3,7 +3,7 @@ import hero from "../../assets/apply-now-hero.png";
 import hero2 from "../../assets/apply-now-hero2.png";
 export default function ApplyNow() {
   return (
-    <div className="bg-white-100 p-6 md:p-4 pb-0 rounded-lg flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 shadow-lg">
+    <div className="bg-white-100 py-6 px-6 lg:px-10  pb-0 rounded-lg flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 shadow-lg">
       {}
       <div className="text-left w-full md:w-300 items-center justify-center flex-col">
         <h1 className="text-3xl md:text-5xl font-bold text-[#1B2D63]">
@@ -11,8 +11,7 @@ export default function ApplyNow() {
         </h1>
 
         <p className="text-[#D87C26] text-justify text-lg md:text-2xl mt-4 font-medium">
-          Nurturing young minds with quality education from Pre-Primary to Class
-          7.
+          Nurturing young minds with quality education from Pre-Primary to Class 7.
         </p>
 
         <button className="mt-6 mb-2 bg-black text-white px-6 py-3 rounded-lg font-medium">

@@ -32,6 +32,8 @@ function App() {
       <div ref={homeRef}>
         <Header scrollToSection={scrollToSection} />
       </div>
+
+    
       <ApplyNow />
       <InvertedRadiusComponent />
       <Services />
@@ -49,6 +51,7 @@ function App() {
        
 
       </div>
+   
       <Footer scrollToSection={scrollToSection} />
     </>
   );

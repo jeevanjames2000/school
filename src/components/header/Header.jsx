@@ -10,7 +10,7 @@ export default function Header({ scrollToSection }) {
       {/* Logo Section */}
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-10" />
-        <span className="text-xl font-bold text-red-600 ml-2 whitespace-nowrap">
+        <span className="text-xl font-bold text-red-600 ml-2 whitespace-nowrap hidden md:block">
           Sri Ganesh Little Feet School
         </span>
       </div>

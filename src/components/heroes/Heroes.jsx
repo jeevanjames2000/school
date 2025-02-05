@@ -87,7 +87,7 @@ export default function Heroes() {
         {heroes.map((_, index) => (
           <div
             key={index}
-            className={`w-3 h-3 rounded-full ${
+            className={`w-2 h-2 rounded-full ${
               index === currentIndex ? "bg-red-600" : "bg-gray-300"
             }`}
           ></div>

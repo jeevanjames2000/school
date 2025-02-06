@@ -6,8 +6,12 @@ import { HiUserGroup } from "react-icons/hi";
 import { HiAcademicCap } from "react-icons/hi2";
 import { GrGallery } from "react-icons/gr";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
+import ApplynowForm from "../Forms/ApplynowForm";
+
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <header className="bg-white shadow-md p-4 pl-8 pr-8 flex justify-between items-center flex-wrap">
       {}
@@ -50,11 +54,12 @@ export default function Header({ scrollToSection }) {
           Contact Us
         </button>
       </nav>
-      {}
-      <button className="hidden lg:block bg-black text-white px-4 py-2 rounded">
+      <button
+        onClick={() => setShowModal(true)}
+        className="hidden lg:block bg-black text-white px-4 py-2 rounded"
+      >
         Apply now
       </button>
-      {}
       <button className="lg:hidden" onClick={() => setIsOpen(true)}>
         <FiMenu size={24} />
       </button>
@@ -136,9 +141,20 @@ export default function Header({ scrollToSection }) {
             </button>
           </nav>
 
-          <button className="bg-black text-white px-4 py-2 mt-4 rounded">
-            Login
+          <button
+            onClick={() => {
+              setShowModal(true);
+              setIsOpen(false);
+            }}
+            className="bg-black text-white px-4 py-2 mt-4 rounded"
+          >
+            Apply now
           </button>
+          {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50 ">
+              <ApplynowForm setShowModal={setShowModal} />
+            </div>
+          )}
         </div>
       </div>
     </header>

@@ -25,8 +25,8 @@ export default function ContactCard() {
           <FaEnvelope className="text-orange-500 text-lg md:text-xl" />
           <span className="text-base md:text-lg">sglfschool@gmail.com</span>
         </div>
-        <div className="flex gap-4 flex-row">
-          <FaMapMarkerAlt className="text-orange-500 text-lg md:text-xl flex-shrink-0" />
+        <div className="flex  gap-4 flex-row">
+          <FaMapMarkerAlt className="text-orange-500 text-lg md:text-xl flex-shrink-0 mt-1.5" />
           <p className="text-base md:text-lg leading-relaxed">
             Sri Ganesh Little Feet School, Old Karasa, Beside Apollo Pharmacy,
             Visakhapatnam

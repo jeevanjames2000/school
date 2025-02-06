@@ -44,10 +44,10 @@ export default function Heroes() {
     return () => clearInterval(interval);
   }, [currentIndex]);
   return (
-    <div className="bg-white py-12 px-6 text-center">
-      <h3 className="text-red-500 text-lg font-semibold">Tutors</h3>
+    <div className="bg-white py-12 px-6 lg:px-20 text-center">
+      <h3 className="text-red-500 text-3xl font-semibold">Tutors</h3>
       <h2 className="text-3xl font-bold mt-2">Meet the Heroes</h2>
-      <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+      <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
         Our dedicated teachers are the true heroes, shaping young minds with
         care, knowledge, and passion. With their expertise and guidance,
         students gain the skills and confidence needed to excel in academics and

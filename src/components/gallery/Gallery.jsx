@@ -58,7 +58,7 @@ export default function Gallery() {
 
   return (
     <div className="bg-white py-12 px-6 text-center max-w-8xl mx-auto ">
-      <h3 className="text-red-500 text-lg font-semibold">Gallery</h3>
+      <h3 className="text-red-500 text-2xl font-semibold">Gallery</h3>
       <h2 className="text-3xl font-bold mt-2 mb-3">Explore Our Gallery</h2>
       <div className="flex justify-center gap-4 mb-6">
         <button

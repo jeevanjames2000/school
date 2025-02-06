@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import logo from "../../assets/school-logo.png";
-
 import { HiHome } from "react-icons/hi";
 import { HiUserGroup } from "react-icons/hi";
 import { HiAcademicCap } from "react-icons/hi2";
 import { GrGallery } from "react-icons/gr";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
-
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <header className="bg-white shadow-md p-4 pl-6 pr-6 flex justify-between items-center flex-wrap">
-      {/* Logo Section */}
+    <header className="bg-white shadow-md p-4 pl-8 pr-8 flex justify-between items-center flex-wrap">
+      {}
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-10" />
         <span className="text-xl font-bold text-red-600 ml-2 whitespace-nowrap hidden md:block">
           Sri Ganesh Little Feet School
         </span>
       </div>
-
-      {/* Desktop Navigation (Hidden below lg) */}
+      {}
       <nav className="hidden lg:flex space-x-6">
         <button
           onClick={() => scrollToSection("home")}
@@ -33,7 +29,6 @@ export default function Header({ scrollToSection }) {
           onClick={() => scrollToSection("about")}
           className="text-red-600 hover:underline"
         >
-         
           About us
         </button>
         <button
@@ -55,23 +50,18 @@ export default function Header({ scrollToSection }) {
           Contact Us
         </button>
       </nav>
-
-      {/* Login Button (Hidden in small screens) */}
+      {}
       <button className="hidden lg:block bg-black text-white px-4 py-2 rounded">
-        Login
+        Apply now
       </button>
-
-      {/* Mobile Menu Button */}
+      {}
       <button className="lg:hidden" onClick={() => setIsOpen(true)}>
         <FiMenu size={24} />
       </button>
-
-      {/* Sidebar Menu (Shown when isOpen is true) */}
+      {}
       {isOpen && (
         <div className="fixed inset-0  z-50 flex justify-end">
-          <div className="bg-black opacity-40 w-full">
-
-          </div>
+          <div className="bg-black opacity-40 w-full"></div>
           <div className="bg-white w-90 p-5 flex flex-col shadow-lg h-full">
             <button className="self-end" onClick={() => setIsOpen(false)}>
               <FiX size={24} />
@@ -84,8 +74,7 @@ export default function Header({ scrollToSection }) {
                 }}
                 className="text-[#872341] text-left flex items-center gap-2"
               >
-                 <HiHome fontSize={20 } />
-              
+                <HiHome fontSize={20} />
                 Home
               </button>
               <button
@@ -95,7 +84,7 @@ export default function Header({ scrollToSection }) {
                 }}
                 className="text-[#872341] text-left flex items-center gap-2"
               >
-                 <HiUserGroup fontSize={20} />
+                <HiUserGroup fontSize={20} />
                 About us
               </button>
               <button
@@ -130,7 +119,7 @@ export default function Header({ scrollToSection }) {
               </button>
             </nav>
             <button className="bg-black text-white px-4 py-2 mt-4 rounded">
-              Login
+              Apply now
             </button>
           </div>
         </div>

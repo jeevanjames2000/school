@@ -17,18 +17,15 @@ export default function ContactCard() {
         Join Our Learning Community Today
       </p>
       <div className="mt-6 space-y-6 text-gray-300">
-        {}
         <div className="flex items-center gap-4 flex-wrap">
           <FaPhoneAlt className="text-orange-500 text-lg md:text-xl" />
           <span className="text-base md:text-lg">+1012 3456 789</span>
         </div>
-        {}
         <div className="flex items-center gap-4 flex-wrap">
           <FaEnvelope className="text-orange-500 text-lg md:text-xl" />
           <span className="text-base md:text-lg">sglfschool@gmail.com</span>
         </div>
-        {}
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 flex-row">
           <FaMapMarkerAlt className="text-orange-500 text-lg md:text-xl flex-shrink-0" />
           <p className="text-base md:text-lg leading-relaxed">
             Sri Ganesh Little Feet School, Old Karasa, Beside Apollo Pharmacy,

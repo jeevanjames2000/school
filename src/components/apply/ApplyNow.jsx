@@ -21,7 +21,7 @@ export default function ApplyNow() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full">
           <div className="bg-[#872341] text-white p-3 md:p-4 rounded-lg block md:flex items-center gap-3 md:gap-4 shadow-md">
             <img
-              src="/src/assets/teacher.png"
+              src="/src/assets/teacher-2.png"
               alt="Teacher"
               className="h-20 md:h-32 rounded-lg mx-auto md:mx-0"
             />

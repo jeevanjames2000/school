@@ -184,19 +184,19 @@ export default function Header({ scrollToSection }) {
       <div className="flex items-center">
       <img src={logo} alt="Logo" className="h-10" />
 
-        <span className="text-xl font-bold text-red-600 ml-2 whitespace-nowrap hidden md:block">
+        <span className="text-xl font-bold text-[#872341] ml-2 whitespace-nowrap hidden md:block">
           Sri Ganesh Little Feet School
         </span>
       </div>
       
       <nav className="hidden lg:flex space-x-6 relative">
-        <button onClick={() => scrollToSection("home")} className="text-red-600 hover:underline">
+        <button onClick={() => scrollToSection("home")} className="text-[#872341] hover:underline text-lg font-semibold">
           Home
         </button>
-        <button onClick={() => scrollToSection("about")} className="text-red-600 hover:underline">
+        <button onClick={() => scrollToSection("about")} className="text-[#872341] hover:underline text-lg font-semibold">
           About us
         </button>
-        <button onClick={() => scrollToSection("gallery")} className="text-red-600 hover:underline">
+        <button onClick={() => scrollToSection("gallery")} className="text-[#872341] hover:underline text-lg font-semibold">
           Gallery
         </button>
         
@@ -205,7 +205,7 @@ export default function Header({ scrollToSection }) {
           onMouseEnter={() => setShowAcademicsDropdown(true)}
           onMouseLeave={() => setShowAcademicsDropdown(false)}
         >
-          <button className="text-red-600 flex items-center hover:underline">
+          <button className="text-[#872341] flex items-center hover:underline text-lg font-semibold">
             Academics <IoIosArrowDown className="ml-1 mt-1" />
           </button>
           <div
@@ -223,7 +223,7 @@ export default function Header({ scrollToSection }) {
           </div>
         </div>
 
-        <button onClick={() => scrollToSection("contact")} className="text-red-600 hover:underline  ">
+        <button onClick={() => scrollToSection("contact")} className="text-[#872341] hover:underline text-lg font-semibold ">
           Contact Us
         </button>
       </nav>

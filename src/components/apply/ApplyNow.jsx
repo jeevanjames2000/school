@@ -11,7 +11,8 @@ export default function ApplyNow() {
         </h1>
 
         <p className="text-[#D87C26] text-justify text-lg md:text-2xl mt-4 font-medium">
-          Nurturing young minds with quality education from Pre-Primary to Class 7.
+          Nurturing young minds with quality education from Pre-Primary to Class
+          7.
         </p>
 
         <button className="mt-6 mb-2 bg-black text-white px-6 py-3 rounded-lg font-medium">
@@ -20,7 +21,7 @@ export default function ApplyNow() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full">
           <div className="bg-[#872341] text-white p-3 md:p-4 rounded-lg block md:flex items-center gap-3 md:gap-4 shadow-md">
             <img
-              src="/src/assets/portrait-female-teacher-with-notepad-green-b 2.png"
+              src="/src/assets/teacher.png"
               alt="Teacher"
               className="h-20 md:h-32 rounded-lg mx-auto md:mx-0"
             />

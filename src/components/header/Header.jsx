@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import logo from "../../assets/school-logo.png";
-
 import { HiHome } from "react-icons/hi";
 import { HiUserGroup } from "react-icons/hi";
 import { HiAcademicCap } from "react-icons/hi2";
 import { GrGallery } from "react-icons/gr";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
-
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <header className="bg-white shadow-md p-4 pl-6 pr-6 flex justify-between items-center flex-wrap">
-      {/* Logo Section */}
+    <header className="bg-white shadow-md p-4 pl-8 pr-8 flex justify-between items-center flex-wrap">
+      {}
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-10" />
         <span className="text-xl font-bold text-red-600 ml-2 whitespace-nowrap hidden md:block">
           Sri Ganesh Little Feet School
         </span>
       </div>
-
-      {/* Desktop Navigation (Hidden below lg) */}
+      {}
       <nav className="hidden lg:flex space-x-6">
         <button
           onClick={() => scrollToSection("home")}
@@ -54,13 +50,11 @@ export default function Header({ scrollToSection }) {
           Contact Us
         </button>
       </nav>
-
-      {/* Login Button (Hidden in small screens) */}
+      {}
       <button className="hidden lg:block bg-black text-white px-4 py-2 rounded">
-        Login
+        Apply now
       </button>
-
-      {/* Mobile Menu Button */}
+      {}
       <button className="lg:hidden" onClick={() => setIsOpen(true)}>
         <FiMenu size={24} />
       </button>

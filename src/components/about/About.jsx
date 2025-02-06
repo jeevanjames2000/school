@@ -2,8 +2,9 @@ import React from "react";
 import about from "../../assets/about.png";
 export default function About() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center p-6 md:p-12 bg-white">
-      <div className="w-full md:w-1/3 hidden md:flex  md:justify-center ">
+    <div className="flex flex-col lg:flex-row items-center justify-center p-6 md:p-12 bg-white">
+      {}
+      <div className="w-full lg:w-1/3 hidden lg:flex lg:justify-center ">
         <img
           src={about}
           alt="Colorful Bulbs"
@@ -12,8 +13,9 @@ export default function About() {
           width={"80%"}
         />
       </div>
-      <div className="flex justify-center items-center  p-4 ">
-        <div className="bg-[#1D1E33] text-white p-8 rounded-2xl shadow-lg max-w-lg relative">
+      {}
+      <div className="w-full lg:w-1/3 flex justify-center items-center p-4">
+        <div className="bg-[#1D1E33] text-white p-8 rounded-2xl shadow-lg w-full max-w-3xl relative">
           <h2 className="text-3xl font-bold text-[#E2953D]">About Us</h2>
           <p className="mt-4 font-bold">
             Shaping Bright Futures with Quality Education

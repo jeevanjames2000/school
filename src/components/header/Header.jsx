@@ -33,7 +33,6 @@ export default function Header({ scrollToSection }) {
           onClick={() => scrollToSection("about")}
           className="text-red-600 hover:underline"
         >
-         
           About us
         </button>
         <button
@@ -66,75 +65,88 @@ export default function Header({ scrollToSection }) {
         <FiMenu size={24} />
       </button>
 
-      {/* Sidebar Menu (Shown when isOpen is true) */}
-      {isOpen && (
-        <div className="fixed inset-0  z-50 flex justify-end">
-          <div className="bg-black opacity-40 w-full">
+      {/* Sidebar Menu (Animated) */}
+      <div
+        className={`fixed inset-0 z-50 flex justify-end ${
+          isOpen ? "visible" : "invisible"
+        }`}
+      >
+        {/* Background Overlay */}
+        <div
+          className={`bg-black w-full transition-opacity duration-300 ease ${
+            isOpen ? "opacity-40" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setIsOpen(false)}
+        ></div>
 
-          </div>
-          <div className="bg-white w-90 p-5 flex flex-col shadow-lg h-full">
-            <button className="self-end" onClick={() => setIsOpen(false)}>
-              <FiX size={24} />
+        {/* Sidebar Panel */}
+        <div
+          className={`bg-white w-60 p-5 flex flex-col shadow-lg h-full fixed top-0 right-0 transform transition-transform duration-300 ease-in-out ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <button className="self-end" onClick={() => setIsOpen(false)}>
+            <FiX size={24} />
+          </button>
+
+          <nav className="flex flex-col mt-4 space-y-4">
+            <button
+              onClick={() => {
+                scrollToSection("home");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <HiHome fontSize={20} />
+              Home
             </button>
-            <nav className="flex flex-col mt-4 space-y-4">
-              <button
-                onClick={() => {
-                  scrollToSection("home");
-                  setIsOpen(false);
-                }}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                 <HiHome fontSize={20 } />
-              
-                Home
-              </button>
-              <button
-                onClick={() => {
-                  scrollToSection("about");
-                  setIsOpen(false);
-                }}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                 <HiUserGroup fontSize={20} />
-                About us
-              </button>
-              <button
-                onClick={() => {
-                  scrollToSection("gallery");
-                  setIsOpen(false);
-                }}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                <GrGallery fontSize={20} />
-                Gallery
-              </button>
-              <button
-                onClick={() => {
-                  scrollToSection("heroes");
-                  setIsOpen(false);
-                }}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                <HiAcademicCap fontSize={20} />
-                Academics
-              </button>
-              <button
-                onClick={() => {
-                  scrollToSection("contact");
-                  setIsOpen(false);
-                }}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                <MdOutlineConnectWithoutContact fontSize={20} />
-                Contact Us
-              </button>
-            </nav>
-            <button className="bg-black text-white px-4 py-2 mt-4 rounded">
-              Login
+            <button
+              onClick={() => {
+                scrollToSection("about");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <HiUserGroup fontSize={20} />
+              About us
             </button>
-          </div>
+            <button
+              onClick={() => {
+                scrollToSection("gallery");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <GrGallery fontSize={20} />
+              Gallery
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection("heroes");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <HiAcademicCap fontSize={20} />
+              Academics
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection("contact");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <MdOutlineConnectWithoutContact fontSize={20} />
+              Contact Us
+            </button>
+          </nav>
+
+          <button className="bg-black text-white px-4 py-2 mt-4 rounded">
+            Login
+          </button>
         </div>
-      )}
+      </div>
     </header>
   );
 }

@@ -69,11 +69,11 @@ export default function ApplynowForm({ setShowModal }) {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-xs z-50"
+      className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0"
       onClick={() => setShowModal(false)}
     >
       <div
-        className="bg-white p-6 rounded-lg shadow-xl w-full md:w-1/2 lg:w-1/3 max-h-[80vh] overflow-y-auto relative border-1 border-black"
+        className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-[60%] lg:w-[50%] xl:w-[40%] max-h-[80vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">

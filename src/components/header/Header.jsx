@@ -189,14 +189,14 @@ export default function Header({ scrollToSection }) {
         </span>
       </div>
       
-      <nav className="hidden lg:flex space-x-6 relative">
-        <button onClick={() => scrollToSection("home")} className="text-[#872341] hover:underline text-lg font-semibold">
+      <nav className="hidden lg:flex space-x-3 relative">
+        <button onClick={() => scrollToSection("home")} className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold">
           Home
         </button>
-        <button onClick={() => scrollToSection("about")} className="text-[#872341] hover:underline text-lg font-semibold">
+        <button onClick={() => scrollToSection("about")} className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold">
           About us
         </button>
-        <button onClick={() => scrollToSection("gallery")} className="text-[#872341] hover:underline text-lg font-semibold">
+        <button onClick={() => scrollToSection("gallery")} className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold">
           Gallery
         </button>
         
@@ -205,11 +205,11 @@ export default function Header({ scrollToSection }) {
           onMouseEnter={() => setShowAcademicsDropdown(true)}
           onMouseLeave={() => setShowAcademicsDropdown(false)}
         >
-          <button className="text-[#872341] flex items-center hover:underline text-lg font-semibold">
+          <button className="text-[#872341] flex items-center hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold">
             Academics <IoIosArrowDown className="ml-1 mt-1" />
           </button>
           <div
-            className={`absolute top-6 w-[160px] left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2  rounded-sm transition-transform  duration-300 ease-in-out transform ${showAcademicsDropdown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5 pointer-events-none"}`}
+            className={`absolute top-9.5 w-[160px] left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2  rounded-sm transition-transform  duration-300 ease-in-out transform ${showAcademicsDropdown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5 pointer-events-none"}`}
           >
             <button onClick={() => scrollToSection("curriculum")} className="text-black hover:bg-[#872341] hover:text-white hover:rounded-sm  p-1 ">
               Curriculum
@@ -223,7 +223,7 @@ export default function Header({ scrollToSection }) {
           </div>
         </div>
 
-        <button onClick={() => scrollToSection("contact")} className="text-[#872341] hover:underline text-lg font-semibold ">
+        <button onClick={() => scrollToSection("contact")} className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold ">
           Contact Us
         </button>
       </nav>

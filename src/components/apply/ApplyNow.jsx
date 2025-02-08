@@ -1,53 +1,38 @@
-import React from "react";
-import hero from "../../assets/apply-now-hero.png";
-import teacher from "../../assets/teacher-2.png";
-
-import hero2 from "../../assets/apply-now-hero2.png";
-export default function ApplyNow() {
+import { useState, useEffect } from "react";
+import heroImage1 from "../../assets/ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.jpg";
+import heroImage2 from "../../assets/erik-mclean-oghXYRP-SpE-unsplash.jpg";
+import heroImage3 from "../../assets/tim-gouw-KigTvXqetXA-unsplash.jpg";
+import heroImage4 from "../../assets/jason-sung-Ciz4lHr8Jgw-unsplash.jpg";
+const images = [heroImage1, heroImage2, heroImage3, heroImage4];
+export default function HeroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
   return (
-    <div className="bg-white-100 py-6 px-6 lg:px-10  pb-0 rounded-lg flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 shadow-lg">
-      <div className="text-left w-full md:w-300 items-center justify-center flex-col">
-        <h1 className="text-3xl md:text-5xl font-bold text-[#1B2D63]">
-          Welcome to Sri Ganesh Little Feets
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center  duration-1000 ease-in-out"
+        style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"></div>
+      <div className="relative z-10 text-center text-white px-6 max-w-3xl">
+        <h1 className="text-4xl sm:text-6xl font-bold leading-tight drop-shadow-lg">
+          Nurturing Young Minds for a Bright Future!
         </h1>
-        <p className="text-[#D87C26] text-justify text-lg md:text-2xl mt-4 font-medium">
-          Nurturing young minds with quality education from Pre-Primary to Class
-          7.
+        <p className="text-lg sm:text-xl mt-4 opacity-90">
+          Quality Education from Pre-Primary to Primary
         </p>
-
-        <button className="mt-6 mb-2 bg-black text-white px-6 py-3 rounded-lg font-medium">
-          Apply now
+        <button
+          className="mt-6 px-6 py-3 text-lg font-semibold bg-yellow-400 text-gray-900 rounded-full shadow-md 
+          hover:bg-yellow-500 transition duration-300"
+        >
+          Learn More
         </button>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full">
-          <div className="bg-[#872341] text-white p-3 md:p-4 rounded-lg block md:flex items-center gap-3 md:gap-4 shadow-md">
-            <img
-              src={teacher}
-              alt="Teacher"
-              className="h-20 md:h-32 rounded-lg mx-auto md:mx-0"
-            />
-            <p className="font-bold text-sm md:text-base text-center md:text-left">
-              Excellence in Education: <br /> Empowering students with knowledge
-              and confidence.
-            </p>
-          </div>
-          <div className="bg-[#872341] text-white p-3 md:p-4 rounded-lg block md:flex items-center gap-3 md:gap-4 shadow-md">
-            <img
-              src={hero2}
-              alt="Students"
-              className="h-20 w-60 md:h-32 rounded-lg mx-auto md:mx-0"
-            />
-            <p className="font-bold text-sm md:text-base text-center md:text-left">
-              To nurture and develop young minds into well-rounded individuals
-              with
-              <strong> critical thinking, leadership, and compassion</strong>.
-            </p>
-          </div>
-        </div>
       </div>
-
-      <div className="hidden lg:block max-[1000px]:hidden">
-        <img src={hero} alt="hero-section" className="h-[450px]" />
-      </div>
-    </div>
+    </section>
   );
 }

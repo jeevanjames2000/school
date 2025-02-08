@@ -1,52 +1,61 @@
 import React, { useState, useEffect, useRef } from "react";
-import gallery1 from "../../assets/gallery1.png";
-import gallery2 from "../../assets/gallery2.png";
-import gallery3 from "../../assets/gallery3.png";
-import gallery4 from "../../assets/gallery4.png";
-
 export default function Gallery() {
-  const [activeTab, setActiveTab] = useState("images");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const [images, setImages] = useState([]);
   const scrollRef = useRef(null);
   const userScrollTimeout = useRef(null);
 
-  const images = [
-    gallery1,
-    gallery2,
-    gallery3,
-    gallery4,
-    gallery3,
-    gallery1,
-    gallery4,
-    gallery2,
-  ];
-  const videos = [
-    "https://www.w3schools.com/html/mov_bbb.mp4",
-    "https://www.w3schools.com/html/movie.mp4",
-  ];
-  const items = activeTab === "images" ? images : videos;
+  useEffect(() => {
+    const fetchImages = async () => {
+      console.log("Fetching images...");
+      try {
+        const cache = await caches.open("image-cache-v1");
+        const cachedResponse = await cache.match(
+          "https://cms-crvm.onrender.com/aws/getImages"
+        );
+        if (cachedResponse) {
+          const data = await cachedResponse.json();
+          const newImages = data.map((item) => item.url);
+          setImages(newImages);
+          console.log("Loaded images from Service Worker cache");
+        } else {
+          const response = await fetch(
+            "https://cms-crvm.onrender.com/aws/getImages"
+          );
+          const data = await response.json();
+          const newImages = data.map((item) => item.url);
+          setImages(newImages);
+          await cache.put(
+            "https://cms-crvm.onrender.com/aws/getImages",
+            new Response(JSON.stringify(data))
+          );
+          console.log("Fetched images from API and cached them");
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+    fetchImages();
+  }, []);
 
   useEffect(() => {
     const startAutoScroll = () => {
       return setInterval(() => {
-        if (!isUserScrolling && scrollRef.current) {
+        if (!isUserScrolling && scrollRef.current && images.length > 0) {
           const container = scrollRef.current;
-          const itemWidth = container.scrollWidth / items.length;
-          const newIndex = (currentIndex + 1) % items.length;
+          const newIndex = (currentIndex + 1) % images.length;
           container.scrollTo({
-            left: itemWidth * newIndex,
+            left: container.scrollWidth * (newIndex / images.length),
             behavior: "smooth",
           });
           setCurrentIndex(newIndex);
         }
       }, 3000);
     };
-
     let autoScrollInterval = startAutoScroll();
-
     return () => clearInterval(autoScrollInterval);
-  }, [currentIndex, items.length, isUserScrolling]);
+  }, [currentIndex, images.length, isUserScrolling]);
 
   const handleManualScroll = () => {
     setIsUserScrolling(true);
@@ -54,60 +63,36 @@ export default function Gallery() {
     userScrollTimeout.current = setTimeout(() => {
       setIsUserScrolling(false);
     }, 3000);
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const newIndex = Math.round(
+        (container.scrollLeft / container.scrollWidth) * images.length
+      );
+      setCurrentIndex(newIndex);
+    }
   };
 
   return (
     <div className="bg-white py-12 px-6 text-center max-w-8xl mx-auto ">
       <h3 className="text-red-500 text-2xl font-semibold">Gallery</h3>
       <h2 className="text-3xl font-bold mt-2 mb-3">Explore Our Gallery</h2>
-      <div className="flex justify-center gap-4 mb-6">
-        <button
-          className={`px-6 py-2 rounded-lg font-semibold ${
-            activeTab === "images"
-              ? "bg-gray-900 text-white"
-              : "bg-orange-500 text-white"
-          }`}
-          onClick={() => setActiveTab("images")}
-        >
-          Images
-        </button>
-        <button
-          className={`px-6 py-2 rounded-lg font-semibold ${
-            activeTab === "videos"
-              ? "bg-gray-900 text-white"
-              : "bg-orange-500 text-white"
-          }`}
-          onClick={() => setActiveTab("videos")}
-        >
-          Videos
-        </button>
-      </div>
       <div
         ref={scrollRef}
         onScroll={handleManualScroll}
-        className="mt-8 flex space-x-6 w-full max-w-7xl mx-auto snap-x scroll-smooth overflow-x-auto no-scrollbar"
+        className="mt-8 flex space-x-6 w-full max-w-7xl mx-auto snap-x scroll-smooth overflow-x-auto"
+        style={{ scrollbarWidth: "2px", msOverflowStyle: "none" }}
       >
-        {items.map((src, index) =>
-          activeTab === "images" ? (
-            <img
-              key={index}
-              src={src}
-              alt={`Gallery ${index}`}
-              className="w-48 h-48 md:w-60 md:h-60 object-cover rounded-lg shadow-md flex-shrink-0 snap-start"
-            />
-          ) : (
-            <video
-              key={index}
-              src={src}
-              controls
-              className="w-48 h-48 md:w-60 md:h-60 object-cover rounded-lg shadow-md flex-shrink-0 snap-start"
-            />
-          )
-        )}
+        {images.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`Gallery ${index}`}
+            className="w-70 h-70 md:w-70 md:h-70 object-cover rounded-lg shadow-md flex-shrink-0 snap-start"
+          />
+        ))}
       </div>
-
       <div className="flex justify-center mt-4 space-x-2 ">
-        {items.map((_, index) => (
+        {images.map((_, index) => (
           <div
             key={index}
             className={`w-2 h-2 rounded-full ${

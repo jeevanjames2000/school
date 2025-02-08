@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { submitForm } from "../../hooks/formService";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -9,15 +10,38 @@ export default function ContactForm() {
     message: "",
   });
 
+  const [status, setStatus] = useState(""); 
+  const [loading, setLoading] = useState(false); 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-  };
+    setLoading(true);
+    setStatus(""); // Clear previous status message
+  
+    try {
+      const response = await submitForm(formData);
+  
+      if (response.success) {
+        setStatus("✅ Message sent successfully!");
+        setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" }); // ✅ Clear fields
+      } else {
+        setStatus("❌ Failed to send message: " + response.message);
+      }
+    } catch (error) {
+      console.log(" An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // ✅ Ensure loading state is reset
+      setStatus("We will Contact You Soon... ThankYou");
+      setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" }); // ✅ Clear fields
 
+
+    }
+  };
+  
   return (
     <form
       onSubmit={handleSubmit}
@@ -87,10 +111,14 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="bg-orange-500 hover:bg-white text-white py-3 px-6 rounded-lg mt-6 hover:text-orange-600 hover:border hover:border-orange-600 transition"
+        className="bg-orange-500 hover:bg-white text-white py-3 px-6 rounded-lg mt-6 hover:text-orange-600 hover:border hover:border-orange-600 transition disabled:opacity-50"
+        disabled={loading}
       >
-        Send Message
+        {loading ? "Sending..." : "Send Message"}
       </button>
+
+      {/* ✅ Show Status Message Below the Button */}
+      {status && <p className="mt-4 text-center text-[#008000] font-semibold text-base">{status}</p>}
     </form>
   );
 }

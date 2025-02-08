@@ -24,55 +24,49 @@ export function useApplyNowForm(setShowModal) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    console.log("Submitting Form Data:", formData);
+
+   
+    const encodedData = new URLSearchParams({ ...formData, token: "0123654", formType: "admission",  }).toString();
+
     try {
-        console.log(formData, "Form Data");
-
-        const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbwSst-8YyDb6Jpn__QLzsiya1iXpNdTaEmVTX955Lq8MhIjBFTHQTH0JnOkwI-79GoYeA/exec",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body: JSON.stringify({ ...formData, token: "0123654" }),
-            }
-        );
-
-        const responseData = await response.json();
-        console.log("Response:", responseData);
-
-        if (response.ok && responseData.success) {
-            setSuccess(true);
-            setTimeout(() => {
-                setShowModal(false);
-                setSuccess(false);
-                setFormData({
-                    studentName: "",
-                    studentAge: "",
-                    dateOfBirth: "",
-                    gender: "",
-                    parentName: "",
-                    contactNumber: "",
-                    email: "",
-                    address: "",
-                    gradeApplyingFor: "",
-                    previousSchool: "",
-                    message: "",
-                });
-            }, 2000);
-        } else {
-            alert("Error submitting form: " + responseData.message);
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwSst-8YyDb6Jpn__QLzsiya1iXpNdTaEmVTX955Lq8MhIjBFTHQTH0JnOkwI-79GoYeA/exec",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded", "Accept": "application/json" },
+          body: encodedData,
+          mode: "cors"
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Failed to submit");
+      );
+
+      if (response.ok) {
+        console.log("Response received:", response);
+        setSuccess(true);
+      }
     } finally {
-        setLoading(false);
+      setLoading(false);
+      setTimeout(() => {
+        setShowModal(false);
+        setSuccess(false);
+        setFormData({
+          studentName: "",
+          studentAge: "",
+          dateOfBirth: "",
+          gender: "",
+          parentName: "",
+          contactNumber: "",
+          email: "",
+          address: "",
+          gradeApplyingFor: "",
+          previousSchool: "",
+          message: "",
+        });
+      }, 2000);
     }
-};
-
-
+  };
 
   return { formData, handleChange, handleSubmit, loading, success };
 }

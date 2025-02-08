@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { HiHome, HiUserGroup, HiAcademicCap } from "react-icons/hi";
 import { GrGallery } from "react-icons/gr";
@@ -6,23 +6,37 @@ import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import ApplynowForm from "../Forms/ApplynowForm";
 import logo from "../../assets/school-logo.png";
-
+import LoginForm from "../Forms/LoginForm";
+import { AiOutlineUser } from "react-icons/ai";
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [sidebarDropdown, setSidebarDropdown] = useState(false);
+  const dropdownRef = useRef();
+  const [auth, setAuth] = useState(false);
+  console.log("auth: ", auth);
 
+  useEffect(() => {
+    const storedAuth = JSON.parse(localStorage.getItem("login")) || false;
+    setAuth(storedAuth);
+
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <header className="bg-white shadow-md p-4 pl-8 pr-8 flex justify-between items-center flex-wrap">
       <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-10" />
-
         <span className="text-xl font-bold text-[#872341] ml-2 whitespace-nowrap hidden md:block">
           Sri Ganesh Little Feet School
         </span>
       </div>
-
       <nav className="hidden lg:flex space-x-3 relative">
         <button
           onClick={() => scrollToSection("home")}
@@ -42,7 +56,6 @@ export default function Header({ scrollToSection }) {
         >
           Gallery
         </button>
-
         <div
           className="relative"
           onMouseEnter={() => setShowAcademicsDropdown(true)}
@@ -78,7 +91,6 @@ export default function Header({ scrollToSection }) {
             </button>
           </div>
         </div>
-
         <button
           onClick={() => scrollToSection("contact")}
           className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold "
@@ -87,16 +99,24 @@ export default function Header({ scrollToSection }) {
         </button>
       </nav>
 
-      <button
-        onClick={() => setShowModal(true)}
-        className="hidden lg:block bg-black text-white px-4 py-2 rounded"
-      >
-        Apply now
-      </button>
+      {!auth ? (
+        <button
+          onClick={() => setShowModal(true)}
+          className="hidden lg:block bg-black text-white px-4 py-2 rounded"
+        >
+          Login
+        </button>
+      ) : (
+        <button
+          onClick={() => setShowModal(!showModal)}
+          className="hidden lg:block  rounded-full hover:bg-gray-200 transition duration-300"
+        >
+          <AiOutlineUser className="w-10 h-10 p-2 rounded-full text-gray-700 bg-gray-200" />
+        </button>
+      )}
       <button className="lg:hidden" onClick={() => setIsOpen(true)}>
         <FiMenu size={24} />
       </button>
-
       <div
         className={`fixed inset-0 z-50 flex justify-end ${
           isOpen ? "visible" : "invisible"
@@ -108,7 +128,6 @@ export default function Header({ scrollToSection }) {
           }`}
           onClick={() => setIsOpen(false)}
         ></div>
-
         <div
           className={`bg-white w-60 p-5 flex flex-col shadow-lg h-full fixed top-0 right-0 transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "translate-x-full"
@@ -117,7 +136,6 @@ export default function Header({ scrollToSection }) {
           <button className="self-end" onClick={() => setIsOpen(false)}>
             <FiX size={24} />
           </button>
-
           <nav className="flex flex-col mt-4 space-y-4">
             <button
               onClick={() => {
@@ -146,7 +164,6 @@ export default function Header({ scrollToSection }) {
             >
               <GrGallery fontSize={20} /> Gallery
             </button>
-
             <div>
               <button
                 onClick={() => setSidebarDropdown(!sidebarDropdown)}
@@ -180,7 +197,6 @@ export default function Header({ scrollToSection }) {
                 </button>
               </div>
             </div>
-
             <button
               onClick={() => {
                 scrollToSection("contact");
@@ -191,7 +207,6 @@ export default function Header({ scrollToSection }) {
               <MdOutlineConnectWithoutContact fontSize={20} /> Contact Us
             </button>
           </nav>
-
           <button
             onClick={() => {
               setShowModal(true);
@@ -201,12 +216,34 @@ export default function Header({ scrollToSection }) {
           >
             Apply now
           </button>
+          {auth ? (
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
+            >
+              Upload Files
+            </button>
+          ) : (
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
+            >
+              Upload Files
+            </button>
+          )}
         </div>
       </div>
-
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50">
-          <ApplynowForm setShowModal={setShowModal} />
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative">
+            <button
+              className="absolute top-3 right-3 text-gray-500"
+              onClick={() => setShowModal(false)}
+            >
+              ✖
+            </button>
+            <LoginForm setShowModal={setShowModal} />
+          </div>
         </div>
       )}
     </header>

@@ -1,71 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useApplyNowForm } from "../../hooks/useApplyNowForm";
 
-export default function ApplynowForm({ setShowModal }) {
-  const [formData, setFormData] = useState({
-    studentName: "",
-    studentAge: "",
-    dateOfBirth: "",
-    gender: "",
-    parentName: "",
-    contactNumber: "",
-    email: "",
-    address: "",
-    gradeApplyingFor: "",
-    previousSchool: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzAiuOzNSqkfxtwrGgA1UuwYWBGFlYROkoB7mRMnWqJwCkNP8A-VWIDUXcEnjMs3RqXCQ/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (response.ok) {
-        setSuccess(true);
-        setTimeout(() => {
-          setShowModal(false);
-          setSuccess(false);
-          setFormData({
-            studentName: "",
-            studentAge: "",
-            dateOfBirth: "",
-            gender: "",
-            parentName: "",
-            contactNumber: "",
-            email: "",
-            address: "",
-            gradeApplyingFor: "",
-            previousSchool: "",
-            message: "",
-          });
-        }, 2000);
-        console.log("err", response.text());
-      } else {
-        alert("Error submitting form");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to submit");
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function ApplyNowForm({ setShowModal }) {
+  const { formData, handleChange, handleSubmit, loading, success } = useApplyNowForm(setShowModal);
 
   return (
     <div
@@ -82,7 +19,7 @@ export default function ApplynowForm({ setShowModal }) {
             onClick={() => setShowModal(false)}
             className="text-2xl text-orange-500"
           >
-            &times;
+             X
           </button>
         </div>
 
@@ -221,14 +158,15 @@ export default function ApplynowForm({ setShowModal }) {
               placeholder="If any additional details..."
             ></textarea>
           </div>
+
           <button
             type="submit"
-            // onClick={() => setShowModal(false)}
             disabled={loading}
             className="bg-orange-500 hover:bg-white text-white py-3 px-6 rounded-lg mt-6 hover:text-orange-600 hover:border hover:border-orange-600 transition mx-auto flex justify-center items-center"
           >
             {loading ? "Submitting..." : "Submit Application"}
           </button>
+
           {success && (
             <p className="text-green-600 text-center mt-2">
               Form submitted successfully!

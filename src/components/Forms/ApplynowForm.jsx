@@ -1,5 +1,6 @@
 import React from "react";
 import { useApplyNowForm } from "../../hooks/useApplyNowForm";
+import { IoMdClose } from "react-icons/io";
 
 export default function ApplyNowForm({ setShowModal }) {
   const { formData, handleChange, handleSubmit, loading, success } = useApplyNowForm(setShowModal);
@@ -19,7 +20,7 @@ export default function ApplyNowForm({ setShowModal }) {
             onClick={() => setShowModal(false)}
             className="text-2xl text-orange-500"
           >
-             X
+             <IoMdClose />
           </button>
         </div>
 

@@ -10,6 +10,16 @@ import InvertedRadiusComponent from "./components/InvertedComp/InvertedRadiusCom
 import Services from "./components/services/Services";
 
 function App() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("Service Worker registered:", registration);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  }
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const galleryRef = useRef(null);
@@ -33,7 +43,6 @@ function App() {
         <Header scrollToSection={scrollToSection} />
       </div>
 
-    
       <ApplyNow />
       <InvertedRadiusComponent />
       <Services />
@@ -48,10 +57,8 @@ function App() {
       </div>
       <div ref={contactRef}>
         <Contact />
-       
-
       </div>
-   
+
       <Footer scrollToSection={scrollToSection} />
     </>
   );

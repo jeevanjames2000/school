@@ -19,9 +19,7 @@ import heroImage3 from "./assets/tim-gouw-KigTvXqetXA-unsplash.jpg";
 import heroImage4 from "./assets/jason-sung-Ciz4lHr8Jgw-unsplash.jpg";
 const queryClient = new QueryClient();
 function App() {
-  const [refreshGalleryTrigger, setRefreshGalleryTrigger] = useState(
-    Date.now()
-  );
+  const [refreshGalleryTrigger] = useState(Date.now());
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const galleryRef = useRef(null);
@@ -60,28 +58,29 @@ function App() {
   }, []);
   return (
     <QueryClientProvider client={queryClient}>
-      <div ref={homeRef}>
-        <Header
-          scrollToSection={scrollToSection}
-          refreshGalleryTrigger={refreshGalleryTrigger}
-        />
+      <div className="overflow-scroll no-scrollbar h-screen">
+        <div ref={homeRef}>
+          <ApplyNow
+            scrollToSection={scrollToSection}
+            refreshGalleryTrigger={refreshGalleryTrigger}
+          />
+        </div>
+        <InvertedRadiusComponent />
+        <Services />
+        <div ref={aboutRef}>
+          <About />
+        </div>
+        <div ref={heroesRef}>
+          <Heroes />
+        </div>
+        <div ref={galleryRef}>
+          <Gallery refreshGalleryTrigger={refreshGalleryTrigger} />
+        </div>
+        <div ref={contactRef}>
+          <Contact />
+        </div>
+        <Footer scrollToSection={scrollToSection} />
       </div>
-      <ApplyNow />
-      <InvertedRadiusComponent />
-      <Services />
-      <div ref={aboutRef}>
-        <About />
-      </div>
-      <div ref={heroesRef}>
-        <Heroes />
-      </div>
-      <div ref={galleryRef}>
-        <Gallery refreshGalleryTrigger={refreshGalleryTrigger} />
-      </div>
-      <div ref={contactRef}>
-        <Contact />
-      </div>
-      <Footer scrollToSection={scrollToSection} />
     </QueryClientProvider>
   );
 }

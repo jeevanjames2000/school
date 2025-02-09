@@ -4,25 +4,21 @@ import { HiHome, HiUserGroup, HiAcademicCap } from "react-icons/hi";
 import { GrGallery } from "react-icons/gr";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-import ApplynowForm from "../Forms/ApplynowForm";
-import logo from "../../assets/school-logo.png";
-import LoginForm from "../Forms/LoginForm";
 import { AiOutlineUser } from "react-icons/ai";
+import logo from "../../assets/school-logo.png";
+import ApplynowForm from "../Forms/ApplynowForm";
+import LoginForm from "../Forms/LoginForm";
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showApllyForm, setApplyForm] = useState(false);
-
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [sidebarDropdown, setSidebarDropdown] = useState(false);
   const dropdownRef = useRef();
   const [auth, setAuth] = useState(false);
-  console.log("auth: ", auth);
-
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("login")) || false;
     setAuth(storedAuth);
-
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -32,93 +28,96 @@ export default function Header({ scrollToSection }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <header className="bg-white shadow-md p-4 pl-8 pr-8 flex justify-between items-center flex-wrap">
-      <div className="flex items-center">
-        <img src={logo} alt="Logo" className="h-10" />
-        <span className="text-xl font-bold text-[#872341] ml-2 whitespace-nowrap hidden md:block">
-          Sri Ganesh Little Feet School
-        </span>
-      </div>
-      <nav className="hidden lg:flex space-x-3 relative">
-        <button
-          onClick={() => scrollToSection("home")}
-          className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold"
-        >
-          Home
-        </button>
-        <button
-          onClick={() => scrollToSection("about")}
-          className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold"
-        >
-          About us
-        </button>
-        <button
-          onClick={() => scrollToSection("gallery")}
-          className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold"
-        >
-          Gallery
-        </button>
-        <div
-          className="relative"
-          onMouseEnter={() => setShowAcademicsDropdown(true)}
-          onMouseLeave={() => setShowAcademicsDropdown(false)}
-        >
-          <button className="text-[#872341] flex items-center hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold">
-            Academics <IoIosArrowDown className="ml-1 mt-1" />
+    <header className="absolute top-0 left-0 w-full z-50 bg-transparent p-4">
+      <div className="w-full px-6 mx-auto flex justify-between items-center">
+        <div className="flex items-center">
+          <img src={logo} alt="Logo" className="h-8" />
+          <span className="text-xl font-bold text-white ml-2 whitespace-nowrap hidden md:block">
+            Sri Ganesh Little Feets
+          </span>
+        </div>
+        <nav className="hidden lg:flex space-x-3 relative">
+          <button
+            onClick={() => scrollToSection("home")}
+            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            Home
+          </button>
+          <button
+            onClick={() => scrollToSection("about")}
+            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            About us
+          </button>
+          <button
+            onClick={() => scrollToSection("gallery")}
+            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            Gallery
           </button>
           <div
-            className={`absolute top-9.5 w-[160px] left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2  rounded-sm transition-transform  duration-300 ease-in-out transform ${
-              showAcademicsDropdown
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-5 pointer-events-none"
-            }`}
+            className="relative"
+            onMouseEnter={() => setShowAcademicsDropdown(true)}
+            onMouseLeave={() => setShowAcademicsDropdown(false)}
+            onClick={() => setShowAcademicsDropdown(!showAcademicsDropdown)}
           >
-            <button
-              onClick={() => scrollToSection("curriculum")}
-              className="text-black hover:bg-[#872341] hover:text-white hover:rounded-sm  p-1 "
-            >
-              Curriculum
+            <button className="text-white flex items-center hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
+              Academics <IoIosArrowDown className="ml-1 mt-1" />
             </button>
-            <button
-              onClick={() => scrollToSection("faculty")}
-              className="text-black hover:bg-[#872341] hover:text-white hover:rounded-sm  p-1 "
+            <div
+              className={`absolute top-9.5 w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${
+                showAcademicsDropdown
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-5 pointer-events-none"
+              }`}
             >
-              Faculty
-            </button>
-            <button
-              onClick={() => scrollToSection("resources")}
-              className="text-black hover:bg-[#872341] hover:text-white hover:rounded-sm  p-1 "
-            >
-              Learning Resources
-            </button>
+              <button
+                onClick={() => scrollToSection("curriculum")}
+                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
+              >
+                Curriculum
+              </button>
+              <button
+                onClick={() => scrollToSection("faculty")}
+                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
+              >
+                Faculty
+              </button>
+              <button
+                onClick={() => scrollToSection("resources")}
+                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
+              >
+                Learning Resources
+              </button>
+            </div>
           </div>
-        </div>
-        <button
-          onClick={() => scrollToSection("contact")}
-          className="text-[#872341] hover:bg-[#872341] hover:text-white hover:rounded-sm px-2 py-1 text-lg font-semibold "
-        >
-          Contact Us
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            Contact Us
+          </button>
+          {!auth ? (
+            <button
+              onClick={() => setShowModal(true)}
+              className="hidden lg:block bg-white text-black px-3 py-1 rounded"
+            >
+              Login
+            </button>
+          ) : (
+            <button
+              onClick={() => setShowModal(!showModal)}
+              className="hidden lg:block rounded-full hover:bg-gray-200 transition duration-300"
+            >
+              <AiOutlineUser className="w-8 h-8 p-2 rounded-full text-gray-700 bg-gray-200" />
+            </button>
+          )}
+        </nav>
+        {}
+        <button className="lg:hidden" onClick={() => setIsOpen(true)}>
+          <FiMenu size={27} color="#fff" fontWeight={"bold"} />
         </button>
-      </nav>
-
-      {!auth ? (
-        <button
-          onClick={() => setShowModal(true)}
-          className="hidden lg:block bg-black text-white px-4 py-2 rounded"
-        >
-          Login
-        </button>
-      ) : (
-        <button
-          onClick={() => setShowModal(!showModal)}
-          className="hidden lg:block  rounded-full hover:bg-gray-200 transition duration-300"
-        >
-          <AiOutlineUser className="w-10 h-10 p-2 rounded-full text-gray-700 bg-gray-200" />
-        </button>
-      )}
-      <button className="lg:hidden" onClick={() => setIsOpen(true)}>
-        <FiMenu size={24} />
-      </button>
+      </div>
       <div
         className={`fixed inset-0 z-50 flex justify-end ${
           isOpen ? "visible" : "invisible"
@@ -222,7 +221,6 @@ export default function Header({ scrollToSection }) {
             <button
               onClick={() => {
                 setShowModal(true);
-                // setIsOpen(!isOpen);
               }}
               className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
             >
@@ -267,7 +265,7 @@ export default function Header({ scrollToSection }) {
             <ApplynowForm setApplyForm={setApplyForm} />
           </div>
         </div>
-      )}
+      )}{" "}
     </header>
   );
 }

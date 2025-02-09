@@ -70,7 +70,7 @@ export default function Gallery({ refreshGalleryTrigger }) {
             src={image.url}
             alt={`Gallery ${index}`}
             className="w-70 h-70 md:w-70 md:h-70 object-cover rounded-lg shadow-md flex-shrink-0 snap-start"
-            loading="lazy"
+            loading="eager"
           />
         ))}
       </div>

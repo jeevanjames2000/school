@@ -9,14 +9,10 @@ import Contact from "./components/contact/Contact";
 import Gallery from "./components/gallery/Gallery";
 import Heroes from "./components/heroes/Heroes";
 import About from "./components/about/About";
-import Header from "./components/header/Header";
 import ApplyNow from "./components/apply/ApplyNow";
 import InvertedRadiusComponent from "./components/InvertedComp/InvertedRadiusComponent";
 import Services from "./components/services/Services";
-import heroImage1 from "./assets/ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.jpg";
-import heroImage2 from "./assets/erik-mclean-oghXYRP-SpE-unsplash.jpg";
-import heroImage3 from "./assets/tim-gouw-KigTvXqetXA-unsplash.jpg";
-import heroImage4 from "./assets/jason-sung-Ciz4lHr8Jgw-unsplash.jpg";
+
 const queryClient = new QueryClient();
 function App() {
   const [refreshGalleryTrigger] = useState(Date.now());
@@ -47,7 +43,12 @@ function App() {
       },
       staleTime: 5 * 60 * 1000,
     });
-    const applyNowImages = [heroImage1, heroImage2, heroImage3, heroImage4];
+    const applyNowImages = [
+      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535574-erik-mclean-oghXYRP-SpE-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-tim-gouw-KigTvXqetXA-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739097984857-jason-sung-Ciz4lHr8Jgw-unsplash.webp",
+    ];
     applyNowImages.forEach((image) => {
       const img = new Image();
       img.src = image;

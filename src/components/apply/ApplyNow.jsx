@@ -1,10 +1,12 @@
 import Header from "../header/Header";
 import { useState, useEffect } from "react";
-import heroImage1 from "../../assets/ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.jpg";
-import heroImage2 from "../../assets/erik-mclean-oghXYRP-SpE-unsplash.jpg";
-import heroImage3 from "../../assets/tim-gouw-KigTvXqetXA-unsplash.jpg";
-import heroImage4 from "../../assets/jason-sung-Ciz4lHr8Jgw-unsplash.jpg";
-const images = [heroImage1, heroImage2, heroImage3, heroImage4];
+
+const images = [
+  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535574-erik-mclean-oghXYRP-SpE-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-tim-gouw-KigTvXqetXA-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739097984857-jason-sung-Ciz4lHr8Jgw-unsplash.webp",
+];
 export default function ApplyNow({ scrollToSection, refreshGalleryTrigger }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});

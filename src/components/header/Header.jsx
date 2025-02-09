@@ -11,6 +11,8 @@ import { AiOutlineUser } from "react-icons/ai";
 export default function Header({ scrollToSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showApllyForm, setApplyForm] = useState(false);
+
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [sidebarDropdown, setSidebarDropdown] = useState(false);
   const dropdownRef = useRef();
@@ -209,7 +211,7 @@ export default function Header({ scrollToSection }) {
           </nav>
           <button
             onClick={() => {
-              setShowModal(true);
+              setApplyForm(true);
               setIsOpen(false);
             }}
             className="bg-black text-white px-4 py-2 mt-4 rounded"
@@ -218,7 +220,10 @@ export default function Header({ scrollToSection }) {
           </button>
           {auth ? (
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                setShowModal(true);
+                // setIsOpen(!isOpen);
+              }}
               className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
             >
               Upload Files
@@ -226,9 +231,9 @@ export default function Header({ scrollToSection }) {
           ) : (
             <button
               onClick={() => setShowModal(true)}
-              className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
+              className="bg-black text-white px-4 py-2 mt-4 rounded"
             >
-              Upload Files
+              Login
             </button>
           )}
         </div>
@@ -242,7 +247,24 @@ export default function Header({ scrollToSection }) {
             >
               ✖
             </button>
-            <LoginForm setShowModal={setShowModal} />
+            <LoginForm
+              setShowModal={setShowModal}
+              setAuth={setAuth}
+              auth={auth}
+            />
+          </div>
+        </div>
+      )}
+      {showApllyForm && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative">
+            <button
+              className="absolute top-3 right-3 text-gray-500"
+              onClick={() => setApplyForm(false)}
+            >
+              ✖
+            </button>
+            <ApplynowForm setApplyForm={setApplyForm} />
           </div>
         </div>
       )}

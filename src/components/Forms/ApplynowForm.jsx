@@ -2,13 +2,14 @@ import React from "react";
 import { useApplyNowForm } from "../../hooks/useApplyNowForm";
 import { IoMdClose } from "react-icons/io";
 
-export default function ApplyNowForm({ setShowModal }) {
-  const { formData, handleChange, handleSubmit, loading, success } = useApplyNowForm(setShowModal);
+export default function ApplyNowForm({ setApplyForm }) {
+  const { formData, handleChange, handleSubmit, loading, success } =
+    useApplyNowForm(setApplyForm);
 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0"
-      onClick={() => setShowModal(false)}
+      onClick={() => setApplyForm(false)}
     >
       <div
         className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-[60%] lg:w-[50%] xl:w-[40%] max-h-[80vh] overflow-y-auto relative"
@@ -17,10 +18,10 @@ export default function ApplyNowForm({ setShowModal }) {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl text-orange-500 font-semibold">Apply Now</h2>
           <button
-            onClick={() => setShowModal(false)}
+            onClick={() => setApplyForm(false)}
             className="text-2xl text-orange-500"
           >
-             <IoMdClose />
+            <IoMdClose />
           </button>
         </div>
 

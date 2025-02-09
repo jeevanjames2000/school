@@ -1,44 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
-export default function Gallery() {
+import React, { useState, useRef, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+export default function Gallery({ refreshGalleryTrigger }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
-  const [images, setImages] = useState([]);
   const scrollRef = useRef(null);
   const userScrollTimeout = useRef(null);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      console.log("Fetching images...");
-      try {
-        const cache = await caches.open("image-cache-v1");
-        const cachedResponse = await cache.match(
-          "https://cms-crvm.onrender.com/aws/getImages"
-        );
-        if (cachedResponse) {
-          const data = await cachedResponse.json();
-          const newImages = data.map((item) => item.url);
-          setImages(newImages);
-          console.log("Loaded images from Service Worker cache");
-        } else {
-          const response = await fetch(
-            "https://cms-crvm.onrender.com/aws/getImages"
-          );
-          const data = await response.json();
-          const newImages = data.map((item) => item.url);
-          setImages(newImages);
-          await cache.put(
-            "https://cms-crvm.onrender.com/aws/getImages",
-            new Response(JSON.stringify(data))
-          );
-          console.log("Fetched images from API and cached them");
-        }
-      } catch (error) {
-        console.error("Error fetching images:", error);
+  const { data: images = [], refetch } = useQuery({
+    queryKey: ["galleryImages"],
+    queryFn: async () => {
+      const response = await fetch(
+        "https://cms-crvm.onrender.com/aws/getImages"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch images");
       }
-    };
-    fetchImages();
-  }, []);
-
+      return response.json();
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+  useEffect(() => {
+    if (refreshGalleryTrigger) {
+      refetch();
+    }
+  }, [refreshGalleryTrigger, refetch]);
   useEffect(() => {
     const startAutoScroll = () => {
       return setInterval(() => {
@@ -56,7 +40,6 @@ export default function Gallery() {
     let autoScrollInterval = startAutoScroll();
     return () => clearInterval(autoScrollInterval);
   }, [currentIndex, images.length, isUserScrolling]);
-
   const handleManualScroll = () => {
     setIsUserScrolling(true);
     clearTimeout(userScrollTimeout.current);
@@ -71,9 +54,8 @@ export default function Gallery() {
       setCurrentIndex(newIndex);
     }
   };
-
   return (
-    <div className="bg-white py-12 px-6 text-center max-w-8xl mx-auto ">
+    <div className="bg-white py-12 px-6 text-center max-w-8xl mx-auto">
       <h3 className="text-red-500 text-2xl font-semibold">Gallery</h3>
       <h2 className="text-3xl font-bold mt-2 mb-3">Explore Our Gallery</h2>
       <div
@@ -82,16 +64,17 @@ export default function Gallery() {
         className="mt-8 flex space-x-6 w-full max-w-7xl mx-auto snap-x scroll-smooth overflow-x-auto"
         style={{ scrollbarWidth: "2px", msOverflowStyle: "none" }}
       >
-        {images.map((src, index) => (
+        {images.map((image, index) => (
           <img
             key={index}
-            src={src}
+            src={image.url}
             alt={`Gallery ${index}`}
             className="w-70 h-70 md:w-70 md:h-70 object-cover rounded-lg shadow-md flex-shrink-0 snap-start"
+            loading="lazy"
           />
         ))}
       </div>
-      <div className="flex justify-center mt-4 space-x-2 ">
+      <div className="flex justify-center mt-4 space-x-2">
         {images.map((_, index) => (
           <div
             key={index}

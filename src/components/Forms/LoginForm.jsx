@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-export default function LoginForm({ setShowModal }) {
+export default function LoginForm({
+  setShowModal,
+  auth,
+  setAuth,
+  refreshGalleryTrigger,
+}) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,52 +23,54 @@ export default function LoginForm({ setShowModal }) {
       alert("Invalid username or password");
     }
   };
-  const [auth, setAuth] = useState(false);
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("login")) || false;
     setAuth(storedAuth);
     setIsLoggedIn(storedAuth);
-  }, []);
+  }, [isLoggedIn]);
   const handleFileChange = (e) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       const imageFiles = files.filter((file) => file.type.startsWith("image/"));
-
       if (imageFiles.length !== files.length) {
         alert("Only image files are allowed!");
       }
-
       setSelectedFiles(imageFiles);
     }
   };
   const handleUpload = async () => {
     if (selectedFiles.length === 0) {
-      alert("Please select files to upload.");
+      alert("Please select images to upload.");
       return;
     }
     const formData = new FormData();
-    selectedFiles.forEach((file) => formData.append("files", file));
+    selectedFiles.forEach((file) => formData.append("images", file));
     try {
-      const response = await fetch("https://your-api-endpoint.com/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://cms-crvm.onrender.com/aws/uploadImage",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       if (response.ok) {
-        alert("Files uploaded successfully!");
+        alert("Images uploaded successfully!");
         setSelectedFiles([]);
+        const cache = await caches.open("image-cache-v2");
+        await cache.delete("https://cms-crvm.onrender.com/aws/getImages");
+        localStorage.removeItem("cacheTime");
+        refreshGalleryTrigger(Date.now());
       } else {
-        alert("Upload failed. Please try again.");
+        const errorData = await response.json();
+        alert(`Upload failed: ${errorData.message}`);
       }
     } catch (error) {
-      console.error("Error uploading files:", error);
-      alert("Error uploading files.");
+      console.error("Error uploading images:", error);
+      refreshGalleryTrigger(Date.now());
     }
   };
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0"
-      onClick={() => setShowModal(false)}
-    >
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0">
       <div className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-auto max-h-[80vh] overflow-y-auto relative">
         <button
           className="absolute top-3 right-3 text-white hover:text-gray-300"

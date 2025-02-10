@@ -57,7 +57,7 @@ export default function LoginForm({
         alert("Images uploaded successfully!");
         setSelectedFiles([]);
         const cache = await caches.open("image-cache-v2");
-        await cache.delete("https://cms-crvm.onrender.com/aws/getImages");
+        await cache.delete("https://cms-crvm.onrender.com/aws/getImagesS3");
         localStorage.removeItem("cacheTime");
         refreshGalleryTrigger(Date.now());
       } else {
@@ -70,7 +70,7 @@ export default function LoginForm({
     }
   };
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0">
+    <div className="relative flex items-center justify-center z-50 px-4 md:px-0">
       <div className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-auto max-h-[80vh] overflow-y-auto relative">
         <button
           className="absolute top-3 right-3 text-white hover:text-gray-300"

@@ -24,7 +24,7 @@ export default function Header({ scrollToSection }) {
         setIsOpen(false);
       }
     }
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -238,33 +238,17 @@ export default function Header({ scrollToSection }) {
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative">
-            <button
-              className="absolute top-3 right-3 text-gray-500"
-              onClick={() => setShowModal(false)}
-            >
-              ✖
-            </button>
-            <LoginForm
-              setShowModal={setShowModal}
-              setAuth={setAuth}
-              auth={auth}
-            />
-          </div>
+        <div className="flex items-center justify-center z-50">
+          <LoginForm
+            setShowModal={setShowModal}
+            setAuth={setAuth}
+            auth={auth}
+          />
         </div>
       )}
       {showApllyForm && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative">
-            <button
-              className="absolute top-3 right-3 text-gray-500"
-              onClick={() => setApplyForm(false)}
-            >
-              ✖
-            </button>
-            <ApplynowForm setApplyForm={setApplyForm} />
-          </div>
+        <div className="fixed  flex items-center justify-center z-50">
+          <ApplynowForm setApplyForm={setApplyForm} />
         </div>
       )}{" "}
     </header>

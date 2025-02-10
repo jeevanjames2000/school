@@ -2,17 +2,17 @@ import Header from "../header/Header";
 import { useState, useEffect } from "react";
 
 const images = [
-  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.webp",
-  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535574-erik-mclean-oghXYRP-SpE-unsplash.webp",
-  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-tim-gouw-KigTvXqetXA-unsplash.webp",
-  "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739097984857-jason-sung-Ciz4lHr8Jgw-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203926526-cdc-UqTrGSohyCs-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203926528-erik-mclean-oghXYRP-SpE-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739204026705-robert-collins-lP_FbBkMn1c-unsplash.webp",
+  "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203602386-3907.webp",
 ];
 export default function ApplyNow({ scrollToSection, refreshGalleryTrigger }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
   useEffect(() => {
-    console.log(window.scrollY)
+    console.log(window.scrollY);
     const preload = () => {
       let count = 0;
       images.forEach((src, index) => {

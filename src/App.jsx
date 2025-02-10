@@ -59,7 +59,7 @@ function App() {
   }, []);
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="overflow-scroll no-scrollbar h-screen">
+      <div className="overflow-scroll no-scrollbar">
         <div ref={homeRef}>
           <ApplyNow
             scrollToSection={scrollToSection}

@@ -238,7 +238,7 @@ export default function Header({ scrollToSection }) {
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex flex-col items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg relative">
             <button
               className="absolute top-3 right-3 text-gray-500"

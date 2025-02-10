@@ -8,6 +8,10 @@ import {
 } from "react-icons/fa";
 
 export default function Footer({ scrollToSection }) {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0); // Scrolls instantly to the top
+  };
+ 
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 ">
       <div className="container mx-auto px-6 lg:px-16 flex flex-col gap-8 md:grid md:grid-cols-3 ">
@@ -70,7 +74,7 @@ export default function Footer({ scrollToSection }) {
               <FaEnvelope /> info@sriganeshlittlefeets.edu.in
             </li>
             <li className="flex justify-start md:justify-start items-center gap-2">
-              <FaMapMarkerAlt /> Chennai, Tamil Nadu, India
+              <FaMapMarkerAlt /> Karasa, Visakhapatnam, AP, India
             </li>
           </ul>
         </div>
@@ -85,7 +89,7 @@ export default function Footer({ scrollToSection }) {
       <div className="fixed bottom-5 right-5">
         <div
           className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={scrollToTop}
         >
           <FaArrowUp />
         </div>

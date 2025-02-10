@@ -61,13 +61,16 @@ export default function Heroes() {
         {heroes.map((hero, index) => (
           <div
             key={index}
-            className="bg-[#0D1B2A] text-white p-6 rounded-lg flex flex-col items-center snap-start min-w-[90%] sm:min-w-[48%] md:min-w-[30%] lg:min-w-[22%]"
+            className="bg-[#0D1B2A] text-white p-6 rounded-lg flex flex-col justify-between items-center snap-start min-w-[90%] sm:min-w-[48%] md:min-w-[30%] lg:min-w-[22%]"
           >
             <img
               src={hero.image}
               alt={hero.name}
               className="w-24 h-24 rounded-full border-4 border-white mb-4"
             />
+            <div>
+
+           
             <h3 className="text-lg font-semibold">{hero.name}</h3>
             <p className="text-sm text-yellow-400 font-medium mt-1">
               {hero.title}
@@ -75,6 +78,7 @@ export default function Heroes() {
             <p className="text-sm text-gray-300 mt-2 text-center">
               {hero.description}
             </p>
+            </div>
             <div className="flex space-x-4 mt-4">
               <FaTwitter className="text-white text-xl cursor-pointer hover:text-blue-400" />
               <FaLinkedin className="text-white text-xl cursor-pointer hover:text-blue-600" />

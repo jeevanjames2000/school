@@ -12,6 +12,7 @@ export default function ApplyNow({ scrollToSection, refreshGalleryTrigger }) {
   const [loadedImages, setLoadedImages] = useState({});
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
   useEffect(() => {
+    console.log(window.scrollY)
     const preload = () => {
       let count = 0;
       images.forEach((src, index) => {

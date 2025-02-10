@@ -41,16 +41,15 @@ export function useApplyNowForm(setShowModal) {
           mode: "cors"
         }
       );
-
-      if (response.ok) {
-        console.log("Response received:", response);
-        setSuccess(true);
-      }
+      setSuccess(true);
+     
     } finally {
       setLoading(false);
+      setSuccess(true);
+   
       setTimeout(() => {
-        setShowModal(false);
-        setSuccess(false);
+      
+  
         setFormData({
           studentName: "",
           studentAge: "",
@@ -64,7 +63,12 @@ export function useApplyNowForm(setShowModal) {
           previousSchool: "",
           message: "",
         });
+    
       }, 2000);
+
+      setTimeout(() => {
+        setShowModal(false);
+      },4000)
     }
   };
 

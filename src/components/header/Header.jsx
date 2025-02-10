@@ -24,11 +24,12 @@ export default function Header({ scrollToSection }) {
         setIsOpen(false);
       }
     }
+    
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <header className="absolute top-0 left-0 w-full z-50 bg-transparent p-4">
+    <header className="fixed top-0 left-0 w-full z-50  p-4 transition-all duration-300 backdrop-blur-xs bg-black/10 text-black shadow-md">
       <div className="w-full px-6 mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-8" />

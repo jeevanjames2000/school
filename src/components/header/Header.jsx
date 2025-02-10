@@ -29,30 +29,30 @@ export default function Header({ scrollToSection }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <header className="fixed top-0 left-0 w-full z-50  p-4 transition-all duration-300 backdrop-blur-xs bg-black/10 text-black shadow-md">
-      <div className="w-full px-6 mx-auto flex justify-between items-center">
+    <header className="absolute lg:fixed top-0 left-0 w-full z-50  p-4 lg:transition-all lg:duration-300 lg:backdrop-blur-xs lg:bg-black/10 lg:text-black lg:shadow-md">
+      <div className="w-full px-2 lg:px-6 mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-8" />
-          <span className="text-xl font-bold text-white ml-2 whitespace-nowrap hidden md:block">
+          <span className="text-xl font-bold text-[#51a2ff] ml-2 whitespace-nowrap hidden md:block">
             Sri Ganesh Little Feets
           </span>
         </div>
         <nav className="hidden lg:flex space-x-3 relative">
           <button
             onClick={() => scrollToSection("home")}
-            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+            className="text-[#51a2ff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
           >
             Home
           </button>
           <button
             onClick={() => scrollToSection("about")}
-            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
           >
             About us
           </button>
           <button
             onClick={() => scrollToSection("gallery")}
-            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
           >
             Gallery
           </button>
@@ -62,7 +62,7 @@ export default function Header({ scrollToSection }) {
             onMouseLeave={() => setShowAcademicsDropdown(false)}
             onClick={() => setShowAcademicsDropdown(!showAcademicsDropdown)}
           >
-            <button className="text-white flex items-center hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
+            <button className="text-[#2b7fff] flex items-center hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
               Academics <IoIosArrowDown className="ml-1 mt-1" />
             </button>
             <div
@@ -94,7 +94,7 @@ export default function Header({ scrollToSection }) {
           </div>
           <button
             onClick={() => scrollToSection("contact")}
-            className="text-white hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
           >
             Contact Us
           </button>

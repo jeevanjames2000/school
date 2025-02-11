@@ -57,7 +57,7 @@ export default function LoginForm({
         alert("Images uploaded successfully!");
         setSelectedFiles([]);
         const cache = await caches.open("image-cache-v2");
-        await cache.delete("https://cms-crvm.onrender.com/aws/getImages");
+        await cache.delete("https://cms-crvm.onrender.com/aws/getImagesS3");
         localStorage.removeItem("cacheTime");
         refreshGalleryTrigger(Date.now());
       } else {

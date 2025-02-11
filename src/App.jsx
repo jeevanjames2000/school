@@ -36,7 +36,7 @@ function App() {
       queryKey: ["galleryImages"],
       queryFn: async () => {
         const response = await fetch(
-          "https://cms-crvm.onrender.com/aws/getImages",
+          "https://cms-crvm.onrender.com/aws/getImagesS3",
           { cache: "no-store" }
         );
         return response.json();
@@ -44,10 +44,10 @@ function App() {
       staleTime: 5 * 60 * 1000,
     });
     const applyNowImages = [
-      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.webp",
-      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535574-erik-mclean-oghXYRP-SpE-unsplash.webp",
-      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-tim-gouw-KigTvXqetXA-unsplash.webp",
-      "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739097984857-jason-sung-Ciz4lHr8Jgw-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203926526-cdc-UqTrGSohyCs-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203926528-erik-mclean-oghXYRP-SpE-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739204026705-robert-collins-lP_FbBkMn1c-unsplash.webp",
+      "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203602386-3907.webp",
     ];
     applyNowImages.forEach((image) => {
       const img = new Image();

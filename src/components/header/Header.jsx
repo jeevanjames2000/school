@@ -255,14 +255,14 @@ export default function Header({ scrollToSection }) {
         </div>
       )}
       {showApllyForm && (
-        <div className="fixed lg:relative inset-0  z-50 ">
+        <div className="fixed lg:relative inset-0  z-50 h-screen">
           <div className="p-6 rounded-lg ">
-            <button
+            {/* <button
               className="absolute top-3 right-3 text-gray-500"
               onClick={() => setApplyForm(false)}
             >
               ✖
-            </button>
+            </button> */}
             <ApplynowForm setApplyForm={setApplyForm} />
           </div>
         </div>

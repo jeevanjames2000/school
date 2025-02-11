@@ -70,10 +70,10 @@ export default function LoginForm({
     }
   };
   return (
-    <div className="relative flex items-center justify-center z-50 px-4 md:px-0">
-      <div className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-auto max-h-[80vh] overflow-y-auto relative">
+    <div className="fixed lg:relative inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0">
+      <div className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-auto lg:min-w-sm max-h-[80vh] overflow-y-auto relative">
         <button
-          className="absolute top-3 right-3 text-white hover:text-gray-300"
+          className="absolute  md:top-3 right-3 text-black hover:text-gray-300"
           onClick={() => setShowModal(false)}
         >
           ✖

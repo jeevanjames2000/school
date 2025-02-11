@@ -8,7 +8,7 @@ export default function ApplyNowForm({ setApplyForm }) {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0"
+      className="fixed lg:relative inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-xs backdrop-brightness-50 z-50 px-4 md:px-0"
       onClick={() => setApplyForm(false)}
     >
       <div

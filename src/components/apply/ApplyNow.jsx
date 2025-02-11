@@ -2,6 +2,7 @@ import Header from "../header/Header";
 import { useState, useEffect } from "react";
 
 const images = [
+  
   "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-ismail-salad-osman-hajji-dirir-v7FT5ngIEfA-unsplash.webp",
   "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535574-erik-mclean-oghXYRP-SpE-unsplash.webp",
   "https://jeevan-aws-s3-bucket.s3.amazonaws.com/uploads/1739098535579-tim-gouw-KigTvXqetXA-unsplash.webp",

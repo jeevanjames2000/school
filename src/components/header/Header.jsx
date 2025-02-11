@@ -66,7 +66,7 @@ export default function Header({ scrollToSection }) {
               Academics <IoIosArrowDown className="ml-1 mt-1" />
             </button>
             <div
-              className={`absolute top-9.5 w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${
+              className={`absolute top-[40px] w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${
                 showAcademicsDropdown
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-5 pointer-events-none"
@@ -120,7 +120,7 @@ export default function Header({ scrollToSection }) {
         </button>
       </div>
       <div
-        className={`fixed inset-0 z-50 flex justify-end ${
+        className={`fixed inset-0 z-50 lg:hidden  flex justify-end ${
           isOpen ? "visible" : "invisible"
         }`}
       >
@@ -238,14 +238,14 @@ export default function Header({ scrollToSection }) {
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex flex-col items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative">
-            <button
+        <div className="fixed lg:relative inset-0 flex flex-col items-center justify-center z-50 h-screen">
+          <div className="p-6 rounded-lg">
+            {/* <button
               className="absolute top-3 right-3 text-gray-500"
               onClick={() => setShowModal(false)}
             >
               ✖
-            </button>
+            </button> */}
             <LoginForm
               setShowModal={setShowModal}
               setAuth={setAuth}
@@ -255,8 +255,8 @@ export default function Header({ scrollToSection }) {
         </div>
       )}
       {showApllyForm && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative">
+        <div className="fixed lg:relative inset-0  z-50 ">
+          <div className="p-6 rounded-lg ">
             <button
               className="absolute top-3 right-3 text-gray-500"
               onClick={() => setApplyForm(false)}

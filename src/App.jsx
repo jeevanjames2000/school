@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Tuitions from "./pages/tuitions/Tuitions";
 import Dance from "./pages/dance/Dance";
-import Home from "./pages/home/home";
+import Home from "./pages/home/Home";
 
 function App() {
   return (

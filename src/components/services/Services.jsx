@@ -8,7 +8,7 @@ export default function Services() {
     "📍 Located in the Heart of Vizag",
   ];
   return (
-    <div className="p-10 lg:px-20 xl:px-0   bg-[#FDFBFA] flex flex-col  justify-center items-center md:flex-row md:justify-between   lg:max-w-screen-lg lg:mx-auto ">
+    <div className="p-10 lg:px-20 xl:px-0    flex flex-col  justify-center items-center md:flex-row md:justify-between   lg:max-w-screen-lg lg:mx-auto ">
       <div className="flex flex-col justify-center items-center md:items-start w-full  text-center md:text-left  ">
         <img src={service} alt="service" className="w-16 md:w-20 mb-4" />
         <h2 className="text-3xl font-bold text-[#0B0B26]">

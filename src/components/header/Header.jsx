@@ -8,7 +8,12 @@ import { AiOutlineUser } from "react-icons/ai";
 import logo from "../../assets/school-logo.png";
 import ApplynowForm from "../Forms/ApplynowForm";
 import LoginForm from "../Forms/LoginForm";
+import { Link, useNavigate  } from "react-router-dom";
+
 export default function Header({ scrollToSection }) {
+
+ const navigation = useNavigate()
+
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showApllyForm, setApplyForm] = useState(false);
@@ -31,19 +36,22 @@ export default function Header({ scrollToSection }) {
   return (
     <header className="absolute lg:fixed top-0 left-0 w-full z-50  p-4 lg:transition-all lg:duration-300 lg:backdrop-blur-xs lg:bg-black/10 lg:text-black lg:shadow-md">
       <div className="w-full px-2 lg:px-6 mx-auto flex justify-between items-center">
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer" onClick={() => navigation("/")}>
           <img src={logo} alt="Logo" className="h-8" />
           <span className="text-xl font-bold text-[#51a2ff] ml-2 whitespace-nowrap hidden md:block">
             Sri Ganesh Little Feets
           </span>
         </div>
         <nav className="hidden lg:flex space-x-3 relative">
+          <Link to={"/"}>
           <button
-            onClick={() => scrollToSection("home")}
+           
             className="text-[#51a2ff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
           >
             Home
           </button>
+          </Link>
+         
           <button
             onClick={() => scrollToSection("about")}
             className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
@@ -56,6 +64,23 @@ export default function Header({ scrollToSection }) {
           >
             Gallery
           </button>
+          <Link to={"/tuitions"}>
+          <button
+           
+            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            Tuitions
+          </button>
+          </Link>
+          <Link to="/dance">
+          <button
+          
+            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+          >
+            Dance Class
+          </button>
+          </Link>
+          
           <div
             className="relative"
             onMouseEnter={() => setShowAcademicsDropdown(true)}
@@ -157,6 +182,32 @@ export default function Header({ scrollToSection }) {
             >
               <HiUserGroup fontSize={20} /> About us
             </button>
+<Link to={"/tuitions"}>
+<button
+              onClick={() => {
+                // scrollToSection("about");
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <HiUserGroup fontSize={20} /> Tuitions
+            </button>
+</Link>
+
+         <Link to="/dance">
+         
+         <button
+              onClick={() => {
+               
+                setIsOpen(false);
+              }}
+              className="text-[#872341] text-left flex items-center gap-2"
+            >
+              <HiUserGroup fontSize={20} /> Dance Class
+            </button>
+         </Link> 
+
+
             <button
               onClick={() => {
                 scrollToSection("gallery");

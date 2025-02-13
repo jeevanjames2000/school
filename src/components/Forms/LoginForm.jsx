@@ -228,7 +228,9 @@ export default function LoginForm({
                 {videos.map((video) => (
                   <tr key={video._id}>
                     <td className="border p-2">{video.name}</td>
-                    <td className="border p-2">{video.youtubeId}</td>
+                    <td className="border p-2">
+                      https://www.youtube.com/embed/{video.youtubeId}
+                    </td>
                     <td className="border p-2 text-center">
                       <button
                         onClick={() => handleDelete(video.youtubeId, "video")}

@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 export default function Gallery({ refreshGalleryTrigger }) {
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
-  console.log("images: ", videos);
   const extractYouTubeId = (url) => {
     return url.split("?")[0];
   };
@@ -33,7 +32,6 @@ export default function Gallery({ refreshGalleryTrigger }) {
       const response = await fetch("https://cms-crvm.onrender.com/cms/getCMS");
       if (!response.ok) throw new Error("Failed to fetch videos");
       const data = await response.json();
-      console.log("data: ", data);
       setVideos(data || []);
     } catch (error) {
       console.error("Error fetching videos:", error);

@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { FaUpload } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
-export default function LoginForm({
-  setShowModal,
-  auth,
-  setAuth,
-  refreshGalleryTrigger,
-  triggerGalleryRefresh,
-}) {
+export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryTrigger }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uploadType, setUploadType] = useState("image");
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState(null);
   const [youtubeId, setYoutubeId] = useState("");
-  const [videoName, setVideoName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModalState] = useState(false);
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("login")) || false;
@@ -24,12 +21,7 @@ export default function LoginForm({
     setIsLoggedIn(storedAuth);
   }, [isLoggedIn]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     if (formData.username === "admin" && formData.password === "admin") {
       setIsLoggedIn(true);
@@ -39,221 +31,153 @@ export default function LoginForm({
     }
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      const imageFiles = files.filter((file) => file.type.startsWith("image/"));
-      if (imageFiles.length !== files.length) {
-        alert("Only image files are allowed!");
-      }
-      setSelectedFiles(imageFiles);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const imagesResponse = await fetch("https://cms-crvm.onrender.com/aws/getImages");
+  //     const videosResponse = await fetch("https://cms-crvm.onrender.com/cms/getCMS");
+  //     const imagesData = await imagesResponse.json();
+  //     const videosData = await videosResponse.json();
+  //     setImages(imagesData.images || []);
+  //     setVideos(videosData || []);
+  //     setShowModalState(true);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   const handleUpload = async () => {
-    if (uploadType === "image" && selectedFiles.length === 0) {
-      alert("Please select images to upload.");
-      return;
-    }
-    if (uploadType === "video" && !youtubeId) {
-      alert("Please enter a YouTube video ID.");
-      return;
-    }
-
     setLoading(true);
-
-    if (uploadType === "image") {
-      const formData = new FormData();
-      selectedFiles.forEach((file) => formData.append("images", file));
-      try {
-        const response = await fetch(
-          "https://cms-crvm.onrender.com/aws/uploadImage",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        if (response.ok) {
-          alert("Images uploaded successfully!");
-          setSelectedFiles([]);
-          refreshGalleryTrigger();
-          const cache = await caches.open("image-cache-v2");
-          await cache.delete("https://cms-crvm.onrender.com/aws/getImagesS3");
-          localStorage.removeItem("cacheTime");
-          refreshGalleryTrigger(Date.now());
-        } else {
-          const errorData = await response.json();
-          alert(`Upload failed: ${errorData.message}`);
-        }
-      } catch (error) {
-        console.error("Error uploading images:", error);
+    try {
+      let response;
+      if (uploadType === "image") {
+        const formData = new FormData();
+        selectedFiles.forEach((file) => formData.append("images", file));
+        response = await fetch("https://cms-crvm.onrender.com/aws/uploadImage", {
+          method: "POST",
+          body: formData,
+        });
+      } else {
+        response = await fetch("https://cms-crvm.onrender.com/cms/uploadCMS", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ youtubeId, name: "Uploaded Video" }),
+        });
       }
-    } else {
-      try {
-        const response = await fetch(
-          "https://cms-crvm.onrender.com/cms/uploadCMS",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ youtubeId: youtubeId, name: videoName }),
-          }
-        );
-        if (response.ok) {
-          alert("Video uploaded successfully!");
-          setYoutubeId("");
-          refreshGalleryTrigger();
-        } else {
-          const errorData = await response.json();
-          alert(`Upload failed: ${errorData.message}`);
-        }
-      } catch (error) {
-        console.error("Error uploading video:", error);
+      if (response.ok) {
+        setSuccessMessage("Upload successful!");
+        fetchData();
+      } else {
+        alert("Upload failed!");
       }
+    } catch (error) {
+      console.error("Error uploading:", error);
     }
+    setLoading(false);
+  };
 
+  const handleDelete = async(id, type) => {
+    setLoading(true);
+    try {
+      let response;
+      if (type === "video") {
+        response = await fetch("https://cms-crvm.onrender.com/aws/deleteYoutube", {
+          method: "POST",
+         
+          body: JSON.stringify({ youtubeIds: [id] }),
+        });
+      } else {
+        response = await fetch("https://cms-crvm.onrender.com/aws/deleteImage", {
+          method: "DELETE",
+          body: JSON.stringify({ imageUrl: id }),
+        });
+      }
+      if (response.ok) {
+        fetchData();
+      } else {
+        alert("Delete failed!");
+      }
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
     setLoading(false);
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-xs bg-black/10  shadow-md z-50 p-4">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <button
-          className="absolute top-4 right-4 !text-white hover:cursor-pointer"
-          onClick={() => setShowModal(false)}
-        >
-          ✖
-        </button>
-        {!isLoggedIn && !auth ? (
-          <>
-            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-              Login
-            </h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-gray-700 font-medium">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  placeholder="Enter your username"
-                  required
-                />
+    <>
+
+      <div className="fixed inset-0 flex items-center justify-center bg-black/5 bg-opacity-10 backdrop-blur-sm z-50 px-4 md:px-0">
+        <div className="bg-white p-6 rounded-lg shadow-md shadow-gray-400 w-full md:w-auto lg:min-w-sm max-h-[80vh] overflow-y-auto relative">
+          <button className="absolute top-3 right-3 text-black hover:text-gray-300" onClick={() => setShowModal(false)}>✖</button>
+          {!isLoggedIn ? (
+            <form className="mt-6" onSubmit={handleLogin}>
+              <h2 className="text-2xl font-bold text-center text-black">Login</h2>
+              <div className="mb-4">
+                <label className="block font-medium">Username</label>
+                <input type="text" name="username" onChange={(e) => setFormData({ ...formData, username: e.target.value })} className="w-full p-2 border rounded" required />
               </div>
-              <div className="relative">
-                <label className="block text-gray-700 font-medium">
-                  Password
-                </label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-9 text-gray-600"
-                >
-                  {showPassword ? (
-                    <AiOutlineEyeInvisible size={20} />
-                  ) : (
-                    <AiOutlineEye size={20} />
-                  )}
+              <div className="mb-4 relative">
+                <label className="block font-medium">Password</label>
+                <input type={showPassword ? "text" : "password"} name="password" onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="w-full p-2 border rounded pr-10" required />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-9">
+                  {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
                 </button>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-              >
-                Login
-              </button>
+              <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg">Login</button>
             </form>
-          </>
-        ) : (
-          <>
-            <h2 className="text-2xl font-semibold text-center text-gray-800">
-              Upload Files
-            </h2>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Select Upload Type
-              </label>
-              <select
-                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                value={uploadType}
-                onChange={(e) => setUploadType(e.target.value)}
-              >
-                <option value="image">Image</option>
-                <option value="video">Video</option>
-              </select>
-            </div>
-            {uploadType === "image" ? (
-              <div className="mt-4 relative">
-                <label className="block text-gray-700 font-medium">
-                  Upload Image
-                </label>
-                <div className="relative w-full">
-                  <input
-                    type="file"
-                    multiple
-                    onChange={handleFileChange}
-                    className="hidden"
-                    id="fileInput"
-                  />
-                  <label
-                    htmlFor="fileInput"
-                    className="flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-md cursor-pointer bg-white text-gray-700 hover:bg-gray-100 transition"
-                  >
-                    {selectedFiles.length > 0 ? (
-                      <span>{selectedFiles.length} file(s) selected</span>
-                    ) : (
-                      <span>Choose File</span>
-                    )}
-                    📁
-                  </label>
-                </div>
+          ) : (
+            <>
+              <h2 className="text-2xl font-bold text-center">Upload Files</h2>
+              <div className="mt-4">
+                <select value={uploadType} onChange={(e) => setUploadType(e.target.value)} className="w-full p-2 border rounded">
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
               </div>
-            ) : (
-              <div className="mt-4 flex flex-col justify-center gap-3">
-                <input
-                  type="text"
-                  placeholder="Enter YouTube Video Name"
-                  value={videoName}
-                  onChange={(e) => setVideoName(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
-                <input
-                  type="text"
-                  placeholder="Enter YouTube Video ID"
-                  value={youtubeId}
-                  onChange={(e) => setYoutubeId(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
-              </div>
-            )}
-            <button
-              onClick={handleUpload}
-              className="w-full flex items-center justify-center gap-2 mt-4 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? (
-                "Uploading..."
-              ) : (
-                <>
-                  <FaUpload /> Upload
-                </>
-              )}
-            </button>
-          </>
-        )}
+              <button onClick={handleUpload} className="w-full bg-blue-600 text-white py-2 rounded-lg mt-2">Upload</button>
+              <button onClick={fetchData} className="w-full bg-green-600 text-white py-2 rounded-lg mt-2">View All</button>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/10 bg-opacity-0 backdrop-blur-none z-50 px-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full md:w-2/3 lg:w-1/2 max-h-[80vh] overflow-y-auto relative">
+            <button className="absolute top-3 right-3 text-black hover:text-gray-500" onClick={() => setShowModalState(false)}>✖</button>
+            <h2 className="text-xl font-bold text-center mb-4">Uploaded Files</h2>
+            <table className="w-full border">
+              <thead>
+                <tr>
+                  <th className="border p-2">Name</th>
+                  <th className="border p-2">YouTube ID / Image</th>
+                  <th className="border p-2">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {videos.map((video) => (
+                  <tr key={video._id}>
+                    <td className="border p-2">{video.name}</td>
+                    <td className="border p-2">{video.youtubeId}</td>
+                    <td className="border p-2 text-center">
+                      <button onClick={() => handleDelete(video.youtubeId, "video")} className="text-red-600 hover:text-red-800"><FaTrashAlt /></button>
+                    </td>
+                  </tr>
+                ))}
+                {images.map((image, index) => (
+                  <tr key={index}>
+                    <td className="border p-2">Image {index + 1}</td>
+                    <td className="border p-2"><img src={image} alt="Uploaded" className="h-12 w-auto" /></td>
+                    <td className="border p-2 text-center">
+                      <button onClick={() => handleDelete(image, "image")} className="text-red-600 hover:text-red-800"><FaTrashAlt /></button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+    </>
   );
 }

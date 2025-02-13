@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FaUpload } from "react-icons/fa";
 
-export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryTrigger }) {
+export default function LoginForm({
+  setShowModal,
+  auth,
+  setAuth,
+  refreshGalleryTrigger,
+  triggerGalleryRefresh,
+}) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [uploadType, setUploadType] = useState("image");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [youtubeId, setYoutubeId] = useState("");
+  const [videoName, setVideoName] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -59,13 +66,17 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
       const formData = new FormData();
       selectedFiles.forEach((file) => formData.append("images", file));
       try {
-        const response = await fetch("https://cms-crvm.onrender.com/aws/uploadImage", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          "https://cms-crvm.onrender.com/aws/uploadImage",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
         if (response.ok) {
           alert("Images uploaded successfully!");
           setSelectedFiles([]);
+          refreshGalleryTrigger();
           const cache = await caches.open("image-cache-v2");
           await cache.delete("https://cms-crvm.onrender.com/aws/getImagesS3");
           localStorage.removeItem("cacheTime");
@@ -79,14 +90,18 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
       }
     } else {
       try {
-        const response = await fetch("https://cms-crvm.onrender.com/cms/uploadCMS", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ youtubeId: youtubeId, name: "google" }),
-        });
+        const response = await fetch(
+          "https://cms-crvm.onrender.com/cms/uploadCMS",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ youtubeId: youtubeId, name: videoName }),
+          }
+        );
         if (response.ok) {
           alert("Video uploaded successfully!");
           setYoutubeId("");
+          refreshGalleryTrigger();
         } else {
           const errorData = await response.json();
           alert(`Upload failed: ${errorData.message}`);
@@ -102,15 +117,22 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
   return (
     <div className="fixed inset-0 flex items-center justify-center backdrop-blur-xs bg-black/10  shadow-md z-50 p-4">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <button className="absolute top-4 right-4 !text-white hover:cursor-pointer" onClick={() => setShowModal(false)}>
+        <button
+          className="absolute top-4 right-4 !text-white hover:cursor-pointer"
+          onClick={() => setShowModal(false)}
+        >
           ✖
         </button>
         {!isLoggedIn && !auth ? (
           <>
-            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Login</h2>
+            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+              Login
+            </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-gray-700 font-medium">Username</label>
+                <label className="block text-gray-700 font-medium">
+                  Username
+                </label>
                 <input
                   type="text"
                   name="username"
@@ -122,7 +144,9 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
                 />
               </div>
               <div className="relative">
-                <label className="block text-gray-700 font-medium">Password</label>
+                <label className="block text-gray-700 font-medium">
+                  Password
+                </label>
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
@@ -132,29 +156,49 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
                   placeholder="Enter your password"
                   required
                 />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-9 text-gray-600">
-                  {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-9 text-gray-600"
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible size={20} />
+                  ) : (
+                    <AiOutlineEye size={20} />
+                  )}
                 </button>
               </div>
-              <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+              >
                 Login
               </button>
             </form>
           </>
         ) : (
           <>
-            <h2 className="text-2xl font-semibold text-center text-gray-800">Upload Files</h2>
+            <h2 className="text-2xl font-semibold text-center text-gray-800">
+              Upload Files
+            </h2>
             <div className="mt-4">
-              <label className="block text-gray-700 font-medium">Select Upload Type</label>
-              <select className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
+              <label className="block text-gray-700 font-medium mb-2">
+                Select Upload Type
+              </label>
+              <select
+                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                value={uploadType}
+                onChange={(e) => setUploadType(e.target.value)}
+              >
                 <option value="image">Image</option>
                 <option value="video">Video</option>
               </select>
             </div>
             {uploadType === "image" ? (
-
               <div className="mt-4 relative">
-                <label className="block text-gray-700 font-medium">Upload Image</label>
+                <label className="block text-gray-700 font-medium">
+                  Upload Image
+                </label>
                 <div className="relative w-full">
                   <input
                     type="file"
@@ -176,10 +220,22 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
                   </label>
                 </div>
               </div>
-
             ) : (
-              <div className="mt-4">
-                <input type="text" placeholder="Enter YouTube Video ID" value={youtubeId} onChange={(e) => setYoutubeId(e.target.value)} className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+              <div className="mt-4 flex flex-col justify-center gap-3">
+                <input
+                  type="text"
+                  placeholder="Enter YouTube Video Name"
+                  value={videoName}
+                  onChange={(e) => setVideoName(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+                <input
+                  type="text"
+                  placeholder="Enter YouTube Video ID"
+                  value={youtubeId}
+                  onChange={(e) => setYoutubeId(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
               </div>
             )}
             <button
@@ -187,7 +243,13 @@ export default function LoginForm({ setShowModal, auth, setAuth, refreshGalleryT
               className="w-full flex items-center justify-center gap-2 mt-4 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition disabled:opacity-50"
               disabled={loading}
             >
-              {loading ? "Uploading..." : <><FaUpload /> Upload</>}
+              {loading ? (
+                "Uploading..."
+              ) : (
+                <>
+                  <FaUpload /> Upload
+                </>
+              )}
             </button>
           </>
         )}

@@ -7,7 +7,12 @@ const images = [
   "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739204026705-robert-collins-lP_FbBkMn1c-unsplash.webp",
   "https://jeevan-aws-s3-bucket.s3.ap-south-1.amazonaws.com/uploads/1739203602386-3907.webp",
 ];
-export default function ApplyNow({ scrollToSection, refreshGalleryTrigger }) {
+
+export default function ApplyNow({
+  scrollToSection,
+  refreshGalleryTrigger,
+  triggerGalleryRefresh,
+}) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
@@ -40,6 +45,7 @@ export default function ApplyNow({ scrollToSection, refreshGalleryTrigger }) {
       <Header
         scrollToSection={scrollToSection}
         refreshGalleryTrigger={refreshGalleryTrigger}
+        triggerGalleryRefresh={triggerGalleryRefresh}
       />
       <div
         className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${

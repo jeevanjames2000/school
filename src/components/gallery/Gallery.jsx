@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 export default function Gallery({ refreshGalleryTrigger }) {
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
+  console.log("images: ", videos);
+  const extractYouTubeId = (url) => {
+    return url.split("?")[0];
+  };
   const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("images");
@@ -12,11 +16,11 @@ export default function Gallery({ refreshGalleryTrigger }) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "https://cms-crvm.onrender.com/aws/getImagesS3"
+        "https://cms-crvm.onrender.com/aws/getImages"
       );
       if (!response.ok) throw new Error("Failed to fetch images");
       const data = await response.json();
-      setImages(data || []);
+      setImages(data.images || []);
     } catch (error) {
       console.error("Error fetching images:", error);
     } finally {
@@ -29,6 +33,7 @@ export default function Gallery({ refreshGalleryTrigger }) {
       const response = await fetch("https://cms-crvm.onrender.com/cms/getCMS");
       if (!response.ok) throw new Error("Failed to fetch videos");
       const data = await response.json();
+      console.log("data: ", data);
       setVideos(data || []);
     } catch (error) {
       console.error("Error fetching videos:", error);
@@ -112,7 +117,7 @@ export default function Gallery({ refreshGalleryTrigger }) {
                 className="snap-start flex-shrink-0 w-[calc(100vw-3rem)] md:w-70"
               >
                 <img
-                  src={image.url}
+                  src={image}
                   alt={`Gallery ${index}`}
                   className="w-full h-70 object-cover rounded-lg shadow-md"
                   loading="eager"
@@ -156,7 +161,9 @@ export default function Gallery({ refreshGalleryTrigger }) {
                   width="100%"
                   height="280"
                   // src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                  src={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                  src={`https://www.youtube.com/embed/${extractYouTubeId(
+                    video.youtubeId
+                  )}`}
                   title={`YouTube Video ${index}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

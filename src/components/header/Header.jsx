@@ -10,9 +10,8 @@ import ApplynowForm from "../Forms/ApplynowForm";
 import LoginForm from "../Forms/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Header({ scrollToSection }) {
-
-  const navigation = useNavigate()
+export default function Header({ scrollToSection, triggerGalleryRefresh }) {
+  const navigation = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +35,10 @@ export default function Header({ scrollToSection }) {
   return (
     <header className="absolute lg:fixed top-0 left-0 w-full z-50  p-4 lg:transition-all lg:duration-300 lg:backdrop-blur-xs lg:bg-black/10 lg:text-black lg:shadow-md">
       <div className="w-full px-2 lg:px-6 mx-auto flex justify-between items-center">
-        <div className="flex items-center cursor-pointer" onClick={() => navigation("/")}>
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={() => navigation("/")}
+        >
           <img src={logo} alt="Logo" className="h-8" />
           <span className="text-xl font-bold text-[#51a2ff] ml-2 whitespace-nowrap hidden md:block">
             Sri Ganesh Little Feets
@@ -44,10 +46,7 @@ export default function Header({ scrollToSection }) {
         </div>
         <nav className="hidden lg:flex space-x-3 relative">
           <Link to={"/"}>
-            <button
-
-              className="text-[#51a2ff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
-            >
+            <button className="text-[#51a2ff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
               Home
             </button>
           </Link>
@@ -65,18 +64,12 @@ export default function Header({ scrollToSection }) {
             Gallery
           </button>
           <Link to={"/tuitions"}>
-            <button
-
-              className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
-            >
+            <button className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
               Tuitions
             </button>
           </Link>
           <Link to="/dance">
-            <button
-
-              className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
-            >
+            <button className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
               Dance Class
             </button>
           </Link>
@@ -91,10 +84,11 @@ export default function Header({ scrollToSection }) {
               Academics <IoIosArrowDown className="ml-1 mt-1" />
             </button>
             <div
-              className={`absolute top-[40px] w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${showAcademicsDropdown
+              className={`absolute top-[40px] w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${
+                showAcademicsDropdown
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-5 pointer-events-none"
-                }`}
+              }`}
             >
               <button
                 onClick={() => scrollToSection("curriculum")}
@@ -138,23 +132,26 @@ export default function Header({ scrollToSection }) {
             </button>
           )}
         </nav>
-        { }
+        {}
         <button className="lg:hidden" onClick={() => setIsOpen(true)}>
           <FiMenu size={27} color="#fff" fontWeight={"bold"} />
         </button>
       </div>
       <div
-        className={`fixed inset-0 z-50 lg:hidden  flex justify-end ${isOpen ? "visible" : "invisible"
-          }`}
+        className={`fixed inset-0 z-50 lg:hidden  flex justify-end ${
+          isOpen ? "visible" : "invisible"
+        }`}
       >
         <div
-          className={`bg-black w-full transition-opacity duration-300 ${isOpen ? "opacity-40" : "opacity-0 pointer-events-none"
-            }`}
+          className={`bg-black w-full transition-opacity duration-300 ${
+            isOpen ? "opacity-40" : "opacity-0 pointer-events-none"
+          }`}
           onClick={() => setIsOpen(false)}
         ></div>
         <div
-          className={`bg-white w-60 p-5 flex flex-col shadow-lg h-full fixed top-0 right-0 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
-            }`}
+          className={`bg-white w-60 p-5 flex flex-col shadow-lg h-full fixed top-0 right-0 transform transition-transform duration-300 ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           <button className="self-end" onClick={() => setIsOpen(false)}>
             <FiX size={24} />
@@ -191,10 +188,8 @@ export default function Header({ scrollToSection }) {
             </Link>
 
             <Link to="/dance">
-
               <button
                 onClick={() => {
-
                   setIsOpen(false);
                 }}
                 className="text-[#872341] text-left flex items-center gap-2"
@@ -202,7 +197,6 @@ export default function Header({ scrollToSection }) {
                 <HiUserGroup fontSize={20} /> Dance Class
               </button>
             </Link>
-
 
             <button
               onClick={() => {
@@ -222,8 +216,9 @@ export default function Header({ scrollToSection }) {
                 <IoIosArrowDown className="ml-1" />
               </button>
               <div
-                className={`ml-8 overflow-hidden transition-max-h duration-300 ease-in-out ${sidebarDropdown ? "max-h-40" : "max-h-0"
-                  }`}
+                className={`ml-8 overflow-hidden transition-max-h duration-300 ease-in-out ${
+                  sidebarDropdown ? "max-h-40" : "max-h-0"
+                }`}
               >
                 <button
                   onClick={() => scrollToSection("curriculum")}
@@ -296,6 +291,7 @@ export default function Header({ scrollToSection }) {
               setShowModal={setShowModal}
               setAuth={setAuth}
               auth={auth}
+              triggerGalleryRefresh={triggerGalleryRefresh}
             />
           </div>
         </div>

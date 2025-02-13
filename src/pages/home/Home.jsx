@@ -15,7 +15,14 @@ import Services from "../../components/services/Services";
 
 const queryClient = new QueryClient();
 function Home() {
-  const [refreshGalleryTrigger] = useState(Date.now());
+  const [refreshGalleryTrigger, setRefreshGalleryTrigger] = useState(
+    Date.now()
+  );
+
+  const triggerGalleryRefresh = () => {
+    setRefreshGalleryTrigger(Date.now());
+  };
+
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const galleryRef = useRef(null);
@@ -64,6 +71,7 @@ function Home() {
           <ApplyNow
             scrollToSection={scrollToSection}
             refreshGalleryTrigger={refreshGalleryTrigger}
+            triggerGalleryRefresh={triggerGalleryRefresh}
           />
         </div>
         <InvertedRadiusComponent />
@@ -75,7 +83,10 @@ function Home() {
           <Heroes />
         </div>
         <div ref={galleryRef}>
-          <Gallery refreshGalleryTrigger={refreshGalleryTrigger} />
+          <Gallery
+            refreshGalleryTrigger={refreshGalleryTrigger}
+            triggerGalleryRefresh={triggerGalleryRefresh}
+          />
         </div>
         <div ref={contactRef}>
           <Contact />

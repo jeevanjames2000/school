@@ -32,6 +32,17 @@ export default function LoginForm({
       alert("Invalid username or password");
     }
   };
+
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+      if (imageFiles.length !== files.length) {
+        alert("Only image files are allowed!");
+      }
+      setSelectedFiles(imageFiles);
+    }
+  };
   const fetchData = async () => {
     try {
       const imagesResponse = await fetch(
@@ -72,6 +83,7 @@ export default function LoginForm({
       }
       if (response.ok) {
         setSuccessMessage("Upload successful!");
+        alert("File uploaded!");
         fetchData();
       } else {
         alert("Upload failed!");
@@ -110,6 +122,7 @@ export default function LoginForm({
       }
       if (response.ok) {
         fetchData();
+        alert("Video deleted!");
       } else {
         alert("Delete failed!");
       }
@@ -190,6 +203,43 @@ export default function LoginForm({
                   <option value="video">Video</option>
                 </select>
               </div>
+              {uploadType === "image" ? (
+                <div className="mt-4 relative">
+                  <label className="block text-gray-700 font-medium">
+                    Upload Image
+                  </label>
+                  <div className="relative w-full">
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="fileInput"
+                    />
+                    <label
+                      htmlFor="fileInput"
+                      className="flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-md cursor-pointer bg-white text-gray-700 hover:bg-gray-100 transition"
+                    >
+                      {selectedFiles && selectedFiles.length > 0 ? (
+                        <span>{selectedFiles.length} file(s) selected</span>
+                      ) : (
+                        <span>Choose File</span>
+                      )}
+                      📁
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-4">
+                  <input
+                    type="text"
+                    placeholder="Enter YouTube Video ID"
+                    value={youtubeId}
+                    onChange={(e) => setYoutubeId(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
+              )}
               <button
                 onClick={handleUpload}
                 className="w-full bg-blue-600 text-white py-2 rounded-lg mt-2"

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "../header/Header";
 import { useState, useEffect } from "react";
 
@@ -61,9 +62,12 @@ export default function ApplyNow({
         <p className="text-base md:text-lg lg:text-xl mt-4 opacity-90">
           Quality Education from Pre-Primary to Primary
         </p>
+
+        <Link to="/school-landingpage">
         <button className="mt-6 px-4 py-2 text-base sm:px-6 sm:py-3 sm:text-lg font-semibold bg-yellow-400 text-gray-900 rounded-full shadow-md hover:bg-yellow-500 transition duration-300">
           Learn More
         </button>
+        </Link>
       </div>
     </section>
   );

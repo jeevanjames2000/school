@@ -10,6 +10,11 @@ import ApplynowForm from "../Forms/ApplynowForm";
 import LoginForm from "../Forms/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
 
+import { FaBookOpen,FaSchool } from "react-icons/fa";
+
+import { GiMusicalNotes } from "react-icons/gi";
+import { TbLogout } from "react-icons/tb";
+
 export default function Header({ scrollToSection, triggerGalleryRefresh }) {
   const navigation = useNavigate();
 
@@ -32,6 +37,12 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("login")
+    setAuth(false)
+    alert("Logged out Successfully...")
+  }
   return (
     <header className="absolute lg:fixed top-0 left-0 w-full z-50  p-4 lg:transition-all lg:duration-300 lg:backdrop-blur-xs lg:bg-black/10 lg:text-black lg:shadow-md">
       <div className="w-full px-2 lg:px-6 mx-auto flex justify-between items-center">
@@ -51,18 +62,17 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
             </button>
           </Link>
 
-          <button
-            onClick={() => scrollToSection("about")}
-            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
-          >
-            About us
-          </button>
-          <button
-            onClick={() => scrollToSection("gallery")}
-            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
-          >
-            Gallery
-          </button>
+          <Link to={"/school-landingpage"}>
+            <button className="text-[#51a2ff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
+              School
+            </button>
+          </Link>
+
+         
+        
+
+
+        
           <Link to={"/tuitions"}>
             <button className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
               Tuitions
@@ -74,48 +84,16 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
             </button>
           </Link>
 
-          <div
-            className="relative"
-            onMouseEnter={() => setShowAcademicsDropdown(true)}
-            onMouseLeave={() => setShowAcademicsDropdown(false)}
-            onClick={() => setShowAcademicsDropdown(!showAcademicsDropdown)}
-          >
-            <button className="text-[#2b7fff] flex items-center hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold">
-              Academics <IoIosArrowDown className="ml-1 mt-1" />
-            </button>
-            <div
-              className={`absolute top-[40px] w-full left-0 bg-white shadow-lg py-4 px-1.5 flex flex-col space-y-2 rounded-sm transition-transform duration-300 ease-in-out transform ${
-                showAcademicsDropdown
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-5 pointer-events-none"
-              }`}
-            >
-              <button
-                onClick={() => scrollToSection("curriculum")}
-                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
-              >
-                Curriculum
-              </button>
-              <button
-                onClick={() => scrollToSection("faculty")}
-                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
-              >
-                Faculty
-              </button>
-              <button
-                onClick={() => scrollToSection("resources")}
-                className="text-black hover:bg-black hover:text-white hover:rounded-sm p-1"
-              >
-                Learning Resources
-              </button>
-            </div>
-          </div>
           <button
-            onClick={() => scrollToSection("contact")}
-            className="text-[#2b7fff] hover:bg-white hover:text-black hover:rounded-sm px-2 py-1 text-lg font-semibold"
+            onClick={() => {
+              setApplyForm(true);
+          
+            }}
+            className="bg-white text-black px-4 py-1  rounded"
           >
-            Contact Us
+            Apply now
           </button>
+        
           {!auth ? (
             <button
               onClick={() => setShowModal(true)}
@@ -124,12 +102,20 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
               Login
             </button>
           ) : (
+            <>
             <button
               onClick={() => setShowModal(!showModal)}
               className="hidden lg:block rounded-full hover:bg-gray-200 transition duration-300"
             >
-              <AiOutlineUser className="w-8 h-8 p-2 rounded-full text-gray-700 bg-gray-200" />
+              <AiOutlineUser className="w-8 h-8 p-2 rounded-full text-gray-700 bg-white" />
             </button>
+             <button
+             onClick={handleLogout}
+             className="hidden lg:block rounded-full hover:bg-gray-200 transition duration-300"
+           >
+             <TbLogout className="w-8 h-8 p-2 rounded-full text-gray-700 bg-white" />
+           </button>
+           </>
           )}
         </nav>
         {}
@@ -157,24 +143,30 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
             <FiX size={24} />
           </button>
           <nav className="flex flex-col mt-4 space-y-4">
+            <Link to="/">
             <button
               onClick={() => {
-                scrollToSection("home");
+                // scrollToSection("home");
                 setIsOpen(false);
               }}
               className="text-[#872341] text-left flex items-center gap-2"
             >
               <HiHome fontSize={20} /> Home
             </button>
-            <button
-              onClick={() => {
-                scrollToSection("about");
-                setIsOpen(false);
-              }}
-              className="text-[#872341] text-left flex items-center gap-2"
-            >
-              <HiUserGroup fontSize={20} /> About us
-            </button>
+            </Link>
+           
+
+            <Link to={"/school-landingpage"}>
+              <button
+                onClick={() => {
+                  // scrollToSection("about");
+                  setIsOpen(false);
+                }}
+                className="text-[#872341] text-left flex items-center gap-2"
+              >
+                <FaSchool  fontSize={20} /> School
+              </button>
+            </Link>
             <Link to={"/tuitions"}>
               <button
                 onClick={() => {
@@ -183,7 +175,7 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
                 }}
                 className="text-[#872341] text-left flex items-center gap-2"
               >
-                <HiUserGroup fontSize={20} /> Tuitions
+                <FaBookOpen  fontSize={20} /> Tuitions
               </button>
             </Link>
 
@@ -194,61 +186,12 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
                 }}
                 className="text-[#872341] text-left flex items-center gap-2"
               >
-                <HiUserGroup fontSize={20} /> Dance Class
+                <GiMusicalNotes fontSize={20} /> Dance Class
               </button>
             </Link>
 
-            <button
-              onClick={() => {
-                scrollToSection("gallery");
-                setIsOpen(false);
-              }}
-              className="text-[#872341] text-left flex items-center gap-2"
-            >
-              <GrGallery fontSize={20} /> Gallery
-            </button>
-            <div>
-              <button
-                onClick={() => setSidebarDropdown(!sidebarDropdown)}
-                className="text-[#872341] text-left flex items-center gap-2"
-              >
-                <HiAcademicCap fontSize={20} /> Academics{" "}
-                <IoIosArrowDown className="ml-1" />
-              </button>
-              <div
-                className={`ml-8 overflow-hidden transition-max-h duration-300 ease-in-out ${
-                  sidebarDropdown ? "max-h-40" : "max-h-0"
-                }`}
-              >
-                <button
-                  onClick={() => scrollToSection("curriculum")}
-                  className="text-black hover:text-red-600 block mt-2"
-                >
-                  Curriculum
-                </button>
-                <button
-                  onClick={() => scrollToSection("faculty")}
-                  className="text-black hover:text-red-600 block"
-                >
-                  Faculty
-                </button>
-                <button
-                  onClick={() => scrollToSection("resources")}
-                  className="text-black hover:text-red-600 block"
-                >
-                  Learning Resources
-                </button>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                scrollToSection("contact");
-                setIsOpen(false);
-              }}
-              className="text-[#872341] text-left flex items-center gap-2"
-            >
-              <MdOutlineConnectWithoutContact fontSize={20} /> Contact Us
-            </button>
+         
+       
           </nav>
           <button
             onClick={() => {
@@ -260,6 +203,8 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
             Apply now
           </button>
           {auth ? (
+            <>
+          
             <button
               onClick={() => {
                 setShowModal(true);
@@ -268,6 +213,17 @@ export default function Header({ scrollToSection, triggerGalleryRefresh }) {
             >
               Upload Files
             </button>
+
+            <button
+              onClick={handleLogout}
+              className="bg-[#872341] text-white px-4 py-2 mt-4 rounded"
+            >
+              Logout
+            </button>
+
+            </>
+
+
           ) : (
             <button
               onClick={() => setShowModal(true)}

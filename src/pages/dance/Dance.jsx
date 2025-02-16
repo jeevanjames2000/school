@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Users } from 'lucide-react';
 import Footer from "../../components/Footer";
@@ -6,6 +6,9 @@ import Header from "../../components/header/Header";
 
 
 function DanceClasses() {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <>
    

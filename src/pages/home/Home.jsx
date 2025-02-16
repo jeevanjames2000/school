@@ -12,6 +12,7 @@ import About from "../../components/about/About";
 import ApplyNow from "../../components/apply/ApplyNow";
 import InvertedRadiusComponent from "../../components/InvertedComp/InvertedRadiusComponent";
 import Services from "../../components/services/Services";
+import ExcellenceSection from "../../components/excellenceSection/ExcellenceSection";
 
 const queryClient = new QueryClient();
 function Home() {
@@ -75,6 +76,7 @@ function Home() {
           />
         </div>
         <InvertedRadiusComponent />
+        <ExcellenceSection />
         <Services />
         <div ref={aboutRef}>
           <About />

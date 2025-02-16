@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import Footer from "../../components/Footer";
@@ -6,6 +6,9 @@ import Header from "../../components/header/Header";
 
 
 function Tuitions() {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
 
     <>
@@ -78,9 +81,9 @@ function Tuitions() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="bg-gray-100 p-8 rounded-lg"
+              className="bg-linear-to-r from-[#872341] to-[#1B2D63] p-8 rounded-lg"
             >
-              <h3 className="text-2xl font-bold mb-6">Subjects Offered</h3>
+              <h3 className="text-2xl font-bold mb-6 text-white">Subjects Offered</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
                   'Mathematics',
